@@ -62,6 +62,7 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
             public void onSuccess(List<FirebaseVisionImageLabel> labels) {
                 // Task completed successfully
                 //
+                System.out.println("succ");
                 currentLabels.clear();
                 for (FirebaseVisionImageLabel item: labels) {
                     currentLabels.add(item);
