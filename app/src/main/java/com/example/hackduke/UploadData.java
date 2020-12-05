@@ -30,13 +30,33 @@ public class UploadData {
             @Override
             public void onSuccess(DocumentReference documentReference) {
 
-                Log.d("Cloud Activity","The meal upload with ID "+documentReference.getId());
+                Log.d("Cloud Activity","The meal upload with Doc ID "+documentReference.getId());
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
 
+                        Log.w("Cloud Activity", "ERROR adding document",e);
+                    }
+                });
+
+    }
+
+
+    public void createUser(String Uid, String name){
+        Map<String,Object> user = new HashMap<>();
+        user.put("Uid",Uid);
+        user.put("name",name);
+        db.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.d("Cloud Activity","The User upload with Doc ID "+documentReference.getId());
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
                         Log.w("Cloud Activity", "ERROR adding document",e);
                     }
                 });
