@@ -1,6 +1,5 @@
 package com.example.hackduke;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,21 +8,22 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
+import java.util.Arrays;
+import java.util.List;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -78,8 +78,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void signIn() {
-        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
-        startActivityForResult(signInIntent, RC_SIGN_IN);
+        List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.GoogleBuilder().build());
+        startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), RC_SIGN_IN);
+
     }
 
     private void signOut() {
@@ -93,10 +94,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
         // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            // The Task returned from this call is always completed, no need to attach
-            // a listener.
-            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
-            handleSignInResult(task);
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if(resultCode == RESULT_OK){
+                //Signed In
+                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+            }
+            else {
+
+            }
         }
     }
 
