@@ -5,7 +5,7 @@ public class FoodGroup {
     String foodType;
     Double co2lb;
     String name;
-    public FoodGroup(String[] a, String ft, Double c, String n) {
+    public FoodGroup(String ft, String n, String[] a, Double c) {
         foodList = a;
         foodType = ft;
         co2lb = c;
