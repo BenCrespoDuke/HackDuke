@@ -2,6 +2,7 @@ package com.example.hackduke;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
@@ -47,6 +48,13 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
         image = thisImage;
         return thisImage;
     }
+
+    public FirebaseVisionImage imageFromBitmap(Bitmap bit){
+        FirebaseVisionImage thisImage = FirebaseVisionImage.fromBitmap(bit);
+        image = thisImage;
+        return thisImage;
+    }
+
 
 
     public void ProcessImage() {
