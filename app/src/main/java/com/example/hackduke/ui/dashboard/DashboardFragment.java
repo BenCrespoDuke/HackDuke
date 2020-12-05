@@ -1,13 +1,12 @@
 package com.example.hackduke.ui.dashboard;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,12 +17,10 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.hackduke.R;
 
-public class DashboardFragment extends Fragment {
+public class DashboardFragment extends Fragment implements OnClickListener{
 
     private DashboardViewModel dashboardViewModel;
 
-    ImageView imageView;
-    Button btOpen;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -34,36 +31,25 @@ public class DashboardFragment extends Fragment {
         dashboardViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                textView.setText("This is Camera");
             }
         });
+
         return root;
     }
 
-
-
-        /*btOpen.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                // Open Camera
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 100);
-
-            }
-        });
-    }*/
-
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            // Get Capture Image
-            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
-            // Set Capture Image to ImageView
-            imageView.setImageBitmap(captureImage);
-        }
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        Button btn = (Button) getActivity().findViewById(
+                R.id.dash_btn);
+        btn.setOnClickListener((OnClickListener) this);
     }
 
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(getActivity(), DashboardFragment.class);
+        startActivity(intent);
+    }
 
 
 

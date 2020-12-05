@@ -40,8 +40,8 @@
 
     <Button
         android:id="@+id/bt_open"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="755dp"
         android:text="open camera"
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
