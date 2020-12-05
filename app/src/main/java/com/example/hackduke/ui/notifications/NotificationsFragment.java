@@ -11,10 +11,16 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.hackduke.R;
 
 public class NotificationsFragment extends Fragment {
+
+    RecyclerView recyclerView;
+
+    String s1[], s2[];
+    int images[] = {R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus};
 
     private NotificationsViewModel notificationsViewModel;
 
