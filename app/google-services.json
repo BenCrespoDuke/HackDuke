@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "538341352298",
+    "project_id": "hackduke-bf9f7",
+    "storage_bucket": "hackduke-bf9f7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:538341352298:android:0722eab5a9443d69c03b13",
+        "android_client_info": {
+          "package_name": "com.example.hackduke"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "538341352298-skhr0knuiu2jms99k54fo85hi6d11057.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hackduke",
+            "certificate_hash": "89ebccbe9ccfc150ebc397fd6725771b62cc25a3"
+          }
+        },
+        {
+          "client_id": "538341352298-q03b9nhgh0etr9vbb04l24efrfq3a104.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoc2Zbkkc67kewQNDhOBLkXPI9C3rkGlA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "538341352298-q03b9nhgh0etr9vbb04l24efrfq3a104.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
