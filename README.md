@@ -1,0 +1,3 @@
+# HackDuke
+
+Food Sustainability App
