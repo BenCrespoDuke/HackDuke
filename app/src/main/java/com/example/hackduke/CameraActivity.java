@@ -62,14 +62,7 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
     }
-    //Request for Camera Permission
-        if(ContextCompat.checkSelfPermission(CameraActivity.this,
-    Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
-        ActivityCompat.requestPermissions(CameraActivity.this,
-                new String[]{
-                        Manifest.permission.CAMERA
-                }, 100);
-    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

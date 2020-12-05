@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.CameraActivity">
+    tools:context=".CameraActivity">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
@@ -19,8 +19,6 @@
             app:popupTheme="@style/Theme.HackDuke.PopupOverlay" />
 
     </com.google.android.material.appbar.AppBarLayout>
-
-    <include layout="@layout/content_camera" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
