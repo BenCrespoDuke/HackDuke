@@ -73,6 +73,7 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
                 .addOnFailureListener (new OnFailureListener() {
             public void onFailure(Exception e) {
                 System.out.println(e.toString());
+                System.out.println("no Succ");
             }
         });
 
