@@ -21,7 +21,6 @@ public class ResultsFragment extends Fragment implements View.OnClickListener{
 
     private ResultsViewModel resultsViewModel;
     private Button cam_button;
-    private Button viewFood;
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         resultsViewModel =
@@ -37,13 +36,6 @@ public class ResultsFragment extends Fragment implements View.OnClickListener{
                 openCamera();
             }
         });
-        viewFood = (Button) root.findViewById(R.id.viewFood);
-        viewFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                viewFood();
-            }
-        });
         resultsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
@@ -53,10 +45,6 @@ public class ResultsFragment extends Fragment implements View.OnClickListener{
         return root;
     }
     public void openCamera() {
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        startActivity(intent);
-    }
-    public void viewFood() {
         Intent intent = new Intent(getActivity(), MainActivity.class);
         startActivity(intent);
     }
