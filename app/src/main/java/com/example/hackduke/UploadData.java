@@ -20,12 +20,13 @@ public class UploadData {
 
     }
 
-    public void uploadMeal(String Uid, String date, double carbon, String[] foodStuff){
+    public void uploadMeal(String Uid, String date, double carbon, String[] foodStuff, boolean isVisible){
         Map<String,Object> meal = new HashMap<>();
         meal.put("Uid",Uid);
         meal.put("date",date);
         meal.put("carbonAmount",carbon);
         meal.put("Food Stuff", foodStuff);
+        meal.put("isVisible", isVisible);
         db.collection("meals").add(meal).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
