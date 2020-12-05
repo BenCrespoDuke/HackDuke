@@ -1,16 +1,16 @@
-package com.example.hackduke.ui.calculation;
+package com.example.hackduke.ui.results;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class CalculationViewModel extends ViewModel {
+public class ResultsViewModel extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public CalculationViewModel() {
+    public ResultsViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is calculation fragment");
+        mText.setValue("This is results fragment");
     }
 
     public LiveData<String> getText() {
