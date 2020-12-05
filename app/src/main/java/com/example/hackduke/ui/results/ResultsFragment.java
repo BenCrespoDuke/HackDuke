@@ -28,6 +28,8 @@ public class ResultsFragment extends Fragment implements View.OnClickListener{
                 new ViewModelProvider(this).get(ResultsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_notifications, container, false);
         final TextView textView = root.findViewById(R.id.text_notifications);
+        TextView foodName = root.findViewById(R.id.foodName);
+        foodName.setText("Food Name");
         cam_button = (Button) root.findViewById(R.id.backToCam);
         cam_button.setOnClickListener(new View.OnClickListener() {
             @Override
