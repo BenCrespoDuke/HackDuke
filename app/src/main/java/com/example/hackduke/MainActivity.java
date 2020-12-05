@@ -4,12 +4,15 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     Button btOpen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("myTag", "This is my message");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
@@ -60,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -68,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
             // Set Capture Image to ImageView
             imageView.setImageBitmap(captureImage);
+
+            PhotoProcessing pp = new PhotoProcessing();
+            pp.imageFromBitmap(captureImage);
+            pp.ProcessImage();
         }
     }
 
