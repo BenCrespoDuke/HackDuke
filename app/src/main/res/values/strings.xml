@@ -13,4 +13,30 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+
+    <string-array name="programming_languages">
+        <item>C++</item>
+        <item>C#</item>
+        <item>Java</item>
+        <item>Javascript</item>
+        <item>Kotlin</item>
+        <item>Python</item>
+        <item>Ruby</item>
+        <item>Swift</item>
+        <item>TypeScript</item>
+        <item>Visual Studio</item>
+    </string-array>
+
+    <string-array name="description">
+        <item>This is random description.</item>
+        <item>This is random description.</item>
+        <item>This is random description.</item>
+        <item>This is random description.</item>
+        <item>This is random description.</item>
+        <item>This is random description.</item>
+        <item>This is random description.</item>
+        <item>This is random description.</item>
+        <item>This is random description.</item>
+        <item>This is random description.</item>
+    </string-array>
 </resources>
