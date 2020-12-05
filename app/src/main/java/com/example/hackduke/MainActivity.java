@@ -3,6 +3,7 @@ package com.example.hackduke;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
@@ -58,8 +59,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 100) {
+            // Get Capture Image
+            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            // Set Capture Image to ImageView
+            imageView.setImageBitmap(captureImage);
+        }
     }
 
 }
