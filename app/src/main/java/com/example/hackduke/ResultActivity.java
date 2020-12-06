@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -136,12 +137,13 @@ public class ResultActivity extends AppCompatActivity {
     }
     public String searchFoodList(ArrayList<String> list) {
         Calculation temp = new Calculation("",1);
-        for(int i = 0; i < list.size(); i++) {
-            for(FoodGroup f: temp.groupList) {
-                if(Arrays.asList(f.getFoodList()).contains(list.get(i))) {
+        for(int i = 0; i < list.size(); i++) { // for each predicted label
+            for(FoodGroup f: temp.groupList) { // for each food group
+                if(Arrays.asList(f.getFoodList()).contains(list.get(i).toLowerCase())) { // if the food list of group contains given label
                     return list.get(i);
                 }
             }
+            Log.d("poop", list.get(i));
         }
         return list.get(0);
     }
