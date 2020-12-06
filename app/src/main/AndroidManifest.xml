@@ -12,16 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HackDuke">
         <activity android:name=".FriendsActivity"></activity>
-        <activity android:name=".LoginActivity"></activity>
-        <activity
-            android:name=".CameraActivity"
-            android:label="@string/title_activity_camera"
-            android:theme="@style/Theme.HackDuke.NoActionBar">
+        <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".CameraActivity"
+            android:label="@string/title_activity_camera"
+            android:theme="@style/Theme.HackDuke.NoActionBar">
         </activity>
         <activity
             android:name=".MainActivity"
