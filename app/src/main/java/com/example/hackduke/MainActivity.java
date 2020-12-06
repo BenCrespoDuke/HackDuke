@@ -1,39 +1,31 @@
 package com.example.hackduke;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
-
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    TextView elementOne, elementTwo, elementThree;
+    //ArrayList<String> myTexts = new ArrayList<>();
+    //String data;
 
-    ArrayList<String> myTexts = new ArrayList<>();
-    String data;
+    Button btnToCamera;
+    Button btnToFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        elementOne = findViewById(R.id.elementOne);
-        elementTwo = findViewById(R.id.elementTwo);
-        elementThree = findViewById(R.id.elementThree);
+        btnToCamera = findViewById(R.id.camera_button);
+        btnToFriends = findViewById(R.id.friends_button);
 
-        getData();
-        setData();
+        //getData();
 
-        BottomNavigationView navView = findViewById(R.id.nav_view);
+        /*BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -41,20 +33,30 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);
+        NavigationUI.setupWithNavController(navView, navController);*/
+
+        btnToCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCameraActivity(v);
+            }
+        });
     }
 
-    private void getData(){
+    /*private void getData(){
         if(getIntent().hasExtra("data")) {
             //myTexts = getIntent().getStringArrayListExtra("test");
             data = getIntent().getStringExtra("data");
         } else{
             Log.d("FOOOOD1","NODATA");;
         }
+    }*/
+
+    public void openCameraActivity(View view){
+        Intent intent = new Intent(this, CameraActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
     }
 
-    private void setData() {
 
-        elementOne.setText(data);
-    }
 }
