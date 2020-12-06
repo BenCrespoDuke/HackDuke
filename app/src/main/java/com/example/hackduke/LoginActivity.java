@@ -17,9 +17,13 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
     private Button signOutButton;
@@ -49,14 +53,29 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
         // Initialize Firebase Auth
-        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        updateUI(account);
+        mGoogleSignInClient.signOut();
+        FirebaseAuth.getInstance().signOut();
+        //updateUI(null);
+        //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+       // updateUI(account);
+
     }
 
     private void updateUI(GoogleSignInAccount currentUser) {
-        if(currentUser == null) {
+        if(currentUser != null) {
+            try {
+                Query query = db.collection("users").whereEqualTo("Uid",FirebaseAuth.getInstance().getUid());
+                if(query==null){
+                    UploadData helper = new UploadData();
+                    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                    helper.createUser(user.getUid(),user.getDisplayName(),user.getEmail());
+                }
+            }catch (Exception e){
+
+            }
             Intent i = new Intent(LoginActivity.this, CameraActivity.class);
             startActivity(i);
+
         }
     }
 
@@ -78,7 +97,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void signOut() {
-        mAuth.signOut();
+        FirebaseAuth.getInstance().signOut();
+        mGoogleSignInClient.signOut();
         updateUI(null);
     }
 

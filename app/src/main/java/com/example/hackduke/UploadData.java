@@ -12,6 +12,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.Transaction;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,6 +31,9 @@ public class UploadData {
         meal.put("carbonAmount",carbon);
         meal.put("Food Stuff", foodStuff);
         meal.put("isVisible", isVisible);
+        Date dateAssist = new Date();
+        long time = dateAssist.getTime();
+        meal.put("time",time);
         db.collection("meals").add(meal).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -81,6 +85,8 @@ public class UploadData {
                 });
                 }
 
+
+    //public void uploadProfilePic
 }
 
 
