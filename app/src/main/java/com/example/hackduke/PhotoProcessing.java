@@ -68,6 +68,7 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
                 for (FirebaseVisionImageLabel item: labels) {
                     currentLabels.add(item);
                 }
+                Log.d("second", currentLabels.get(0).toString());
 
             }
         })
