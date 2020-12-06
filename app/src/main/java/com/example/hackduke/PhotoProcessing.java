@@ -35,9 +35,8 @@ public class PhotoProcessing{
 FirebaseVisionImage image;
 List<FirebaseVisionImageLabel> currentLabels = new ArrayList<FirebaseVisionImageLabel>();
 ArrayList<String> myTexts = new ArrayList<>();
-
 FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageLabeler();
-
+Bitmap bm;
     public PhotoProcessing(){
 
     }
@@ -59,6 +58,7 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
     public FirebaseVisionImage imageFromBitmap(Bitmap bit){
         FirebaseVisionImage thisImage = FirebaseVisionImage.fromBitmap(bit);
         image = thisImage;
+        bm = bit;
         return thisImage;
     }
 
@@ -107,6 +107,7 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
                         page, ResultActivity.class);
                 //i.putStringArrayListExtra("test", (ArrayList<String>) myTexts);
                 i.putExtra("data",myTexts);
+                i.putExtra("bit",bm);
                 page.startActivity(i);
             }
 
