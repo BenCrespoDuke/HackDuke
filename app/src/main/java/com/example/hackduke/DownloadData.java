@@ -45,7 +45,7 @@ public class DownloadData {
         return result;
     }
 
-    public ArrayList<Map<String,Object>> getFiendMeals(String Uid){
+    public ArrayList<meal> getFiendMeals(String Uid){
         ArrayList<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
         List<String> friends = this.getFriends(Uid);
         db.collection("Meals").whereIn("Uid", Arrays.asList(friends)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -61,8 +61,12 @@ public class DownloadData {
                 }
             }
         });
+        ArrayList<meal> finalResult = new ArrayList<meal>();
+        for (Map<String,Object> map:result) {
+            finalResult.add(new meal(map));
+        }
 
-        return result;
+        return finalResult;
     }
 
     public List<String> getFriends(String Uid){
