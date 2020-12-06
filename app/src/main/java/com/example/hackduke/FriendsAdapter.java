@@ -17,10 +17,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
 
     ArrayList<String> names;
     ArrayList<Long> carbons;
-    int images[];
+    ArrayList<Integer> images;
     Context context;
 
-    public FriendsAdapter(Context ct, ArrayList<String> n, ArrayList<Long> c, int img[]) {
+    public FriendsAdapter(Context ct, ArrayList<String> n, ArrayList<Long> c, ArrayList<Integer> img) {
         context = ct;
         names = n;
         carbons = c;
@@ -39,14 +39,14 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
         if(position < names.size() ) {
             holder.name.setText(names.get(position));
             holder.carbonScore.setText(String.valueOf(carbons.get(position)));
-            holder.pfp.setImageResource(images[position]);
+            holder.pfp.setImageResource(images.get(position));
         }
 
     }
 
     @Override
     public int getItemCount() {
-        return images.length;
+        return images.size();
     }
 
     public class FriendsViewHolder extends RecyclerView.ViewHolder{

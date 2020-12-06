@@ -40,8 +40,7 @@ public class FriendsActivity extends AppCompatActivity {
     Context ct = this;
     ArrayList<String> names = new ArrayList<>();
     ArrayList<Long> carbon = new ArrayList<>();
-    int images[] = {R.drawable.c_plus_plus, R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus};
-
+    ArrayList<Integer> images = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +90,7 @@ public class FriendsActivity extends AppCompatActivity {
                         for (Friend friend : friends) {
                             names.add((String) friend.getFriendData().get("name"));
                             carbon.add((Long) friend.getFriendData().get("carbonAverage"));
+                            images.add(R.drawable.c_plus_plus);
                         }
 
                         FriendsAdapter friendAdapter = new FriendsAdapter(ct, names, carbon, images);
