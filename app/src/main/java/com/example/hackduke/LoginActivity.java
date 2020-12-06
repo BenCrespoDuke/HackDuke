@@ -82,7 +82,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     private void signIn() {
         List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.GoogleBuilder().build());
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers).build(), RC_SIGN_IN);
-
     }
 
     private void signOut() {
