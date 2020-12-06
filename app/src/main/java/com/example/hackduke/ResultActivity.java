@@ -1,6 +1,7 @@
 package com.example.hackduke;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,8 @@ public class ResultActivity extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         ArrayList<String> predictList = extras.getStringArrayList("data");
+        Intent intent = getIntent();
+        Bitmap bitmap = (Bitmap) intent.getParcelableExtra("bit");
         String name = searchFoodList(predictList);
         Calculation calc = new Calculation(name,1);
         calc.calculate();
@@ -33,13 +36,14 @@ public class ResultActivity extends AppCompatActivity {
         foodGroup.setText(calc.getGroup().getName());
 
         TextView score = findViewById(R.id.score);
-        score.setText(""+calc.getCo2());
+        score.setText(""+calc.getCo2() +" lbs");
 
         TextView  recommendation = findViewById(R.id.Recommendation);
         recommendation.setText(calc.getRec());
 
         ImageView img = findViewById(R.id.imageView2);
-        //img.setImageBitmap();
+        img.setImageBitmap(bitmap);
+
         cam_button = (Button) findViewById(R.id.backToCam);
         cam_button.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -75,8 +75,8 @@ public class Calculation {
     }
     public String getRec() {
         if(co2 < 5) {
-            return "Congratulations, your choice of\n" +
-                    name + " consists of\n" +
+            return "Congratulations, your choice of " +
+                    name + " consists of " +
                     currentGroup.getName() + " which is sustainable!";
         }
         ArrayList<FoodGroup> sameType = new ArrayList<>();
