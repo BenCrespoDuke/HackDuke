@@ -66,7 +66,7 @@ public class CameraActivity extends AppCompatActivity {
             List<String> myTexts = pp.ProcessImage();
             Intent i = new Intent(
                     CameraActivity.this, MainActivity.class);
-            getIntent().putStringArrayListExtra("Test", (ArrayList<String>) myTexts);
+            getIntent().putStringArrayListExtra("test", (ArrayList<String>) myTexts);
             startActivity(i);
         }
     }
