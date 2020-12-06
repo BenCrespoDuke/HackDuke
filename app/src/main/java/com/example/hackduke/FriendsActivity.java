@@ -114,7 +114,7 @@ public class FriendsActivity extends AppCompatActivity {
                         for (Friend friend : friends) {
                             names.add((String) friend.getFriendData().get("name"));
                             carbon.add((Long) friend.getFriendData().get("carbonAverage"));
-                            images.add(R.drawable.c_plus_plus);
+                            images.add(R.drawable.pfp);
                         }
 
                         FriendsAdapter friendAdapter = new FriendsAdapter(ct, names, carbon, images);
