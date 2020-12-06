@@ -3,15 +3,16 @@ package com.example.hackduke;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
 public class Calculation {
-   ArrayList<FoodGroup> groupList = new ArrayList<>();
+    ArrayList<FoodGroup> groupList = new ArrayList<>();
     private String name;
     private double servSize;
-    private String group;
-    private double co2g;
+    private double co2;
+    FoodGroup currentGroup = new FoodGroup();
     public Calculation(String n, double s) {
-        FoodGroup lamb = new FoodGroup("Meat","Lamb",new String[]{"lamb", "mutton", }, 39.2);
+        FoodGroup lamb = new FoodGroup("Meat","Lamb",new String[]{"lamb", "mutton"}, 39.2);
         FoodGroup beef = new FoodGroup("Meat","Beef",new String[]{"beef", "hamburger", "steak", "meatball", "meatloaf","prime rib", "roast beef", "beef stew", "cheeseburger", "beef wellington", "beef stroganoff" }, 27.0);
         FoodGroup cheese = new FoodGroup("Dairy","Cheese",new String[]{"cheese"}, 13.5);
         FoodGroup bacon = new FoodGroup("Meat","Pork",new String[]{"pork","bacon"}, 12.1);
@@ -58,19 +59,54 @@ public class Calculation {
         for(FoodGroup g: groupList) {
             List<String> list = Arrays.asList(g.getFoodList());
             if(list.contains(name.toLowerCase())) {
-                co2g = servSize * g.getCo2lb();
-                group = g.getName();
+                co2 = servSize * g.getCo2lb();
+                currentGroup = g;
                 return;
             }
         }
-        co2g = 0;
-        group = "Other";
+        co2 = 0;
+        currentGroup = new FoodGroup("Other");
     }
     public double getCo2() {
-        return co2g;
+        return co2;
     }
-    public String getGroup() {
-        return group;
+    public FoodGroup getGroup() {
+        return currentGroup;
+    }
+    public String getRec() {
+        if(co2 < 5) {
+            return "Congratulations, your choice of\n" +
+                    name + " consists of\n" +
+                    currentGroup.getName() + " which is sustainable!";
+        }
+        ArrayList<FoodGroup> sameType = new ArrayList<>();
+        for(FoodGroup f: groupList) {
+            if(f.getFoodType().equals(currentGroup.getFoodType())) {
+                sameType.add(f);
+            }
+        }
+        FoodGroup minGroup = sameType.get(0);
+        for(FoodGroup f: sameType) {
+            if(f.getCo2lb() < minGroup.getCo2lb()) {
+                minGroup = f;
+            }
+        }
+        int rnd = new Random().nextInt(minGroup.getFoodList().length);
+        String dishRec = minGroup.getFoodList()[rnd];
+        if(co2 < 15) {
+            return "Your choice of\n" +
+                    name + " consists of\n" +
+                    currentGroup.getName() + " which is moderately sustainable.\n" +
+                    "Consider more sustainable alternatives such as foods of \n" +
+                    minGroup + ", for example, " + dishRec + ".";
+        }
+        return  "Your choice of\n" +
+                name + " consists of\n" +
+                currentGroup.getName() + " which is very unsustainable.\n" +
+                "Consider more sustainable alternatives such as foods of \n" +
+                minGroup + ", for example, " + dishRec + ".";
+
+
     }
 
 
