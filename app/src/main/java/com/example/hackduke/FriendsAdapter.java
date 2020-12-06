@@ -1,6 +1,7 @@
 package com.example.hackduke;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -42,9 +43,10 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
             holder.name.setText(names.get(position));
             holder.carbonScore.setText(String.valueOf(carbons.get(position)));
             holder.pfp.setImageResource(images.get(position));
-            if(meals.get(position) == null) {
+           if(meals.get(position) != null) {
+                //Log.d("FOOD", meals.get(position));
                 holder.meal.setText(meals.get(position));
-            }
+           }
         }
 
     }

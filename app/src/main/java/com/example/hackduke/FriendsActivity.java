@@ -174,7 +174,7 @@ public class FriendsActivity extends AppCompatActivity {
 
                         // Finds Friend meals
                         ArrayList<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
-                        db.collection("Meals").whereIn("Uid", Arrays.asList(friendUid)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        db.collection("Meals").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful() == true) {
@@ -184,6 +184,7 @@ public class FriendsActivity extends AppCompatActivity {
                                 } else {
                                     Log.w("Cloud Activty", "ERROR GETTING USER MEALS", task.getException());
                                 }
+                                Log.d("Result SIze", String.valueOf(result.size()));
                                 ArrayList<meal> finalResult = new ArrayList<meal>();
                                 for (Map<String, Object> map : result) {
                                     finalResult.add(new meal(map));
@@ -191,21 +192,25 @@ public class FriendsActivity extends AppCompatActivity {
                                 friendMeals = finalResult;
                                 // Do any UI setup Using Friend Meal Information
 
+                                Log.d("Friend meal COUNT", String.valueOf(friendMeals.size()));
+
                                 boolean mealDetected;
                                 for (Friend friend : friends){
                                     mealDetected = false;
 
                                     for(meal m: friendMeals){
-                                        Log.d("ALIVEFFFF", (String) m.getMealDatat().get("Food Stuff"));
-                                        //if(friend.getFriendData().get("Uid").equals(m.getMealDatat().get("Uid"))){
+                                        //Log.d("ALIVEFFFF", (String) m.getMealDatat().get("Food Stuff"));
+                                        if(friend.getFriendData().get("Uid").equals(m.getMealDatat().get("Uid"))){
                                             meals.add((String) m.getMealDatat().get("Food Stuff"));
                                             mealDetected = true;
-                                        //}
+                                        }
                                     }
                                     if(!mealDetected) {
                                         meals.add(null);
                                     }
                                 }
+
+                                Log.d("FOOD COUNT", String.valueOf(meals.size()));
 
                                 FriendsAdapter friendAdapter = new FriendsAdapter(ct, names, carbon, images, meals);
                                 recyclerView.setAdapter(friendAdapter);
