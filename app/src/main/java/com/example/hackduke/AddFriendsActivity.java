@@ -17,7 +17,11 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 
 public class AddFriendsActivity extends AppCompatActivity {
-    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public FirebaseFirestore db = FirebaseFirestore.getInstance();
+    public ArrayList<Friend> friendsRequesting = new  ArrayList<Friend>();
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +33,8 @@ public class AddFriendsActivity extends AppCompatActivity {
         TextView name = findViewById(R.id.Name);
         name.setText(friendName);
 
+
+        //Get Users requesting to be friends
         Query query = db.collection("user").whereEqualTo("Uid",0);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -44,11 +50,13 @@ public class AddFriendsActivity extends AppCompatActivity {
                     query1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            ArrayList<Friend> friendsRequesting = new  ArrayList<Friend>();
+
                             if(task.isSuccessful()==true){
                                 for (DocumentSnapshot documentSnapshot:task.getResult()) {
                                     friendsRequesting.add(new Friend(documentSnapshot.getData()));
                                 }
+
+                                //Do UI setup with requesting Users
                             }
                         }
                     });
