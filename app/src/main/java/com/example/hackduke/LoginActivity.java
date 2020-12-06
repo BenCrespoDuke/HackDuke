@@ -30,6 +30,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_login);
         // Configure sign-in to request the user's ID, email address, and basic
         // profile. ID and basic profile are included in DEFAULT_SIGN_IN.
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -53,12 +54,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateUI(GoogleSignInAccount currentUser) {
-        if(currentUser != null) {
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(i);
-        }
-        //maybe return error message
-        return;
+        Intent i = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(i);
     }
 
     @Override
