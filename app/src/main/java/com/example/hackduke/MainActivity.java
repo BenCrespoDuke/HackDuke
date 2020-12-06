@@ -44,13 +44,14 @@ public class MainActivity extends AppCompatActivity {
         //getData();
         //setData();
 
-        db.collection("meals").whereEqualTo("Uid", "1").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+        db.collection("meals").whereEqualTo("Uid", "0").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()==true){
                     for(QueryDocumentSnapshot document: task.getResult()){
                         MealHistory.add(new meal(document.getData()));
                     }
+
                 }
             }
         });
