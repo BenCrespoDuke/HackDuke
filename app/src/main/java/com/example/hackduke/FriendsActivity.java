@@ -184,15 +184,17 @@ public class FriendsActivity extends AppCompatActivity {
                         if (friends.indexOf(document.get("Uid")) != -1) {
                             friendMeals.add(new meal(document.getData()));
                         }
+                        for (Friend tempFriend : friends) {
+                            if (tempFriend.getFriendData().containsKey("Uid")) {
+                                friendUid.add((String) tempFriend.getFriendData().get("Uid"));
+                            }
+                        }
                     }
                 }
             }
         });
-        for (Friend tempFriend : friends) {
-            if (tempFriend.getFriendData().containsKey("Uid")) {
-                friendUid.add((String) tempFriend.getFriendData().get("Uid"));
-            }
-        }
+
+
 
         //Listner for friend changes
         db.collection("users").whereIn("Uid", friendUid).addSnapshotListener(new EventListener<QuerySnapshot>() {

@@ -3,13 +3,18 @@ package com.example.hackduke;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 
 import java.util.Date;
@@ -19,7 +24,7 @@ import java.util.Map;
 public class UploadData {
     // Access a Cloud Firestore instance from your Activity
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-
+    String docID = "";
     public UploadData(){
 
     }
@@ -49,6 +54,37 @@ public class UploadData {
                     }
                 });
 
+        Query reff = db.collection("users").whereEqualTo("Uid",Uid);
+        reff.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()==true){
+
+                    for(DocumentSnapshot document: task.getResult()){
+                        docID= document.getId();
+                    }
+                    db.runTransaction(new Transaction.Function<Void>() {
+                        @Nullable
+                        @Override
+                        public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
+                            DocumentSnapshot snap = transaction.get(db.collection("users").document(docID));
+                            double origanalNumb = (double)snap.get("number of meals");
+                            double currentCarbon = (double)snap.get("carbonAverage");
+                            double newAverage = (currentCarbon*origanalNumb+carbon)/(origanalNumb+1);
+                            origanalNumb++;
+                            transaction.update(db.collection("users").document(docID),"number of meals",origanalNumb);
+                            transaction.update(db.collection("users").document(docID),"carbonAverage",newAverage);
+
+
+                            return null;
+                        }
+                    });
+                }
+            }
+        });
+
+
+
     }
 
 
@@ -57,6 +93,10 @@ public class UploadData {
         user.put("Uid",Uid);
         user.put("email", email);
         user.put("name",name);
+        user.put("carbonAverage",0.0);
+        user.put("number of meals", 0.0);
+        user.put("friends",new String[0]);
+        user.put("friend requests", new String[0]);
         db.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -73,17 +113,22 @@ public class UploadData {
     }
 
     public void makeFriendRequest(String gmail){
-        final Query reff = db.collection("users").whereEqualTo("email",gmail);
-
-                db.runTransaction(new Transaction.Function<Object>() {
-                    @Override
-                    public Object apply(Transaction transaction) throws FirebaseFirestoreException{
-                       // DocumentSnapshot document = transaction.get(reff.)
-
-                        return null;
+        Task reff = db.collection("users").whereEqualTo("email",gmail).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful() == true) {
+                    String DocID = "";
+                    for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                        DocID = documentSnapshot.getId();
                     }
-                });
+
                 }
+            }
+        });
+
+        }
+
+
 
 
     //public void uploadProfilePic
