@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
     TextView elementOne, elementTwo, elementThree;
 
     ArrayList<String> myTexts = new ArrayList<>();
+    String data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void getData(){
-        if(getIntent().hasExtra("test")) {
-            myTexts = getIntent().getStringArrayListExtra("test");
+        if(getIntent().hasExtra("data")) {
+            //myTexts = getIntent().getStringArrayListExtra("test");
+            data = getIntent().getStringExtra("data");
         } else{
             Log.d("FOOOOD1","NODATA");;
         }
@@ -49,8 +51,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void setData() {
 
-        elementOne.setText(myTexts.get(0));
-        elementTwo.setText(myTexts.get(1));
-        elementThree.setText(myTexts.get(2));
+        elementOne.setText(data);
     }
 }
