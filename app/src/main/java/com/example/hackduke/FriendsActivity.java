@@ -39,7 +39,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     Context ct = this;
     ArrayList<String> names = new ArrayList<>();
-    ArrayList<Double> carbon = new ArrayList<>();
+    ArrayList<Long> carbon = new ArrayList<>();
     int images[] = {R.drawable.c_plus_plus, R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus};
 
     @Override
@@ -90,7 +90,7 @@ public class FriendsActivity extends AppCompatActivity {
 
                         for (Friend friend : friends) {
                             names.add((String) friend.getFriendData().get("name"));
-                            carbon.add((double) friend.getFriendData().get("carbonAverage"));
+                            carbon.add((Long) friend.getFriendData().get("carbonAverage"));
                         }
 
                         FriendsAdapter friendAdapter = new FriendsAdapter(ct, names, carbon, images);

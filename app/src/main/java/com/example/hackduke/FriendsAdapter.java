@@ -16,11 +16,11 @@ import java.util.ArrayList;
 public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsViewHolder> {
 
     ArrayList<String> names;
-    ArrayList<Double> carbons;
+    ArrayList<Long> carbons;
     int images[];
     Context context;
 
-    public FriendsAdapter(Context ct, ArrayList<String> n, ArrayList<Double> c, int img[]) {
+    public FriendsAdapter(Context ct, ArrayList<String> n, ArrayList<Long> c, int img[]) {
         context = ct;
         names = n;
         carbons = c;
@@ -36,9 +36,11 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
 
     @Override
     public void onBindViewHolder(@NonNull FriendsViewHolder holder, int position) {
-        holder.name.setText(names.get(position));
-        holder.carbonScore.setText(String.valueOf(carbons.get(position)));
-        holder.pfp.setImageResource(images[position]);
+        if(position < names.size() ) {
+            holder.name.setText(names.get(position));
+            holder.carbonScore.setText(String.valueOf(carbons.get(position)));
+            holder.pfp.setImageResource(images[position]);
+        }
 
     }
 
