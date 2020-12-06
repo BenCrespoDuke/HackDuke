@@ -78,7 +78,7 @@ public class UploadData {
                 db.runTransaction(new Transaction.Function<Object>() {
                     @Override
                     public Object apply(Transaction transaction) throws FirebaseFirestoreException{
-
+                       // DocumentSnapshot document = transaction.get(reff.)
 
                         return null;
                     }

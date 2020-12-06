@@ -15,6 +15,7 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -23,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<meal> MealHistory = new ArrayList<meal>();
     /*ArrayList<String> myTexts = new ArrayList<>();
     String data;*/
-
+    List<Friend> localFriends;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,12 @@ public class MainActivity extends AppCompatActivity {
         //getData();
         //setData();
 
-        db.collection("meals").whereEqualTo("Uid", 1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+
+
+
+
+
+        db.collection("meals").whereEqualTo("Uid", "1").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()==true){
