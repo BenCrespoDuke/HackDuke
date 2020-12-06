@@ -50,13 +50,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onStart();
         // Initialize Firebase Auth
         GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        if(account != null) {
-            updateUI(account);
-        }
+        updateUI(account);
     }
 
     private void updateUI(GoogleSignInAccount currentUser) {
-        if(currentUser != null) {
+        if(currentUser == null) {
             Intent i = new Intent(LoginActivity.this, CameraActivity.class);
             startActivity(i);
         }
