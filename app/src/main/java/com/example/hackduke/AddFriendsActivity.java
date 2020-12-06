@@ -61,9 +61,6 @@ public class AddFriendsActivity extends AppCompatActivity {
                                 recycle.setAdapter(friend);
                                 recycle.setLayoutManager(new LinearLayoutManager(ct));
                                 //Do UI setup with requesting Users
-                                for(Friend f : friendsRequesting){
-
-                                }
                             }
                         }
                     });
