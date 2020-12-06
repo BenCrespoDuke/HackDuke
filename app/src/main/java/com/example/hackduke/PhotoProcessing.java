@@ -104,9 +104,9 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
                 }
                 Log.d("ALIVE",myTexts.get(0));
                 Intent i = new Intent(
-                        page, MainActivity.class);
+                        page, ResultActivity.class);
                 //i.putStringArrayListExtra("test", (ArrayList<String>) myTexts);
-                i.putExtra("data",myTexts.get(0));
+                i.putExtra("data",myTexts);
                 page.startActivity(i);
             }
 
