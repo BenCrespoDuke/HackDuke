@@ -42,7 +42,9 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
             holder.name.setText(names.get(position));
             holder.carbonScore.setText(String.valueOf(carbons.get(position)));
             holder.pfp.setImageResource(images.get(position));
-            holder.meal.setText(meals.get(position));
+            if(meals.get(position) == null) {
+                holder.meal.setText(meals.get(position));
+            }
         }
 
     }

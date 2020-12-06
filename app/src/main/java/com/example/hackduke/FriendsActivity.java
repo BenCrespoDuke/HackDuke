@@ -147,7 +147,7 @@ public class FriendsActivity extends AppCompatActivity {
                             });
                         }
 
-                        db.collection("meals").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                        db.collection("Meals").addSnapshotListener(new EventListener<QuerySnapshot>() {
                             @Override
                             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
                                 if (error != null) {
@@ -192,11 +192,17 @@ public class FriendsActivity extends AppCompatActivity {
                                 friendMeals = finalResult;
                                 // Do any UI setup Using Friend Meal Information
 
+                                boolean mealDetected;
                                 for (Friend friend : friends){
+                                    mealDetected = false;
                                     for(meal m: friendMeals){
                                         if(friend.getFriendData().get("Uid").equals(m.getMealDatat().get("Uid"))){
                                             meals.add((String) m.getMealDatat().get("Food Stuff"));
+                                            mealDetected = true;
                                         }
+                                    }
+                                    if(!mealDetected) {
+                                        meals.add(null);
                                     }
                                 }
 
