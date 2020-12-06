@@ -2,8 +2,6 @@ package com.example.hackduke;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,12 +28,6 @@ public class AddFriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friends);
 
-        EditText inputFriends = findViewById(R.id.inputEmail);
-        String friendName = inputFriends.getText().toString();
-
-        TextView name = findViewById(R.id.Name);
-        name.setText(friendName);
-
 
         //Get Users requesting to be friends
         Query query = db.collection("user").whereEqualTo("Uid",0);
@@ -58,12 +50,13 @@ public class AddFriendsActivity extends AppCompatActivity {
                                 for (DocumentSnapshot documentSnapshot:task.getResult()) {
                                     friendsRequesting.add(new Friend(documentSnapshot.getData()));
                                 }
-                                FriendsAdapter friend = new FriendsAdapter(ct, new ArrayList<String>(), new ArrayList<Long>(), new ArrayList<Integer>(), new ArrayList<String>());
+                                FriendsAdapter friend = new FriendsAdapter(ct, new ArrayList<String>(), new ArrayList<Long>(), new ArrayList<Integer>(), new ArrayList<String>(), new ArrayList<String>());
                                 for(Friend f : friendsRequesting) {
                                     friend.names.add((String) f.FriendData.get("name"));
                                     friend.carbons.add((Long) f.FriendData.get("carbonAverage"));
-                                    friend.images.add((Integer) f.FriendData.get("images"));
+                                    friend.images.add(R.drawable.pfp);
                                     friend.meals.add((String) f.FriendData.get("number of meals"));
+                                    friend.emails.add((String) f.FriendData.get("email"));
                                 }
                                 recycle.setAdapter(friend);
                                 recycle.setLayoutManager(new LinearLayoutManager(ct));
