@@ -1,11 +1,14 @@
 package com.example.hackduke;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -31,6 +34,14 @@ public class FriendsActivity extends AppCompatActivity {
     ArrayList<Friend> friends;
     ArrayList<String> friendUid;
     String Uid;
+
+    RecyclerView recyclerView;
+
+    Context ct = this;
+    ArrayList<String> names = new ArrayList<>();
+    ArrayList<Double> carbon = new ArrayList<>();
+    int images[] = {R.drawable.c_plus_plus, R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus,R.drawable.c_plus_plus};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -74,6 +85,16 @@ public class FriendsActivity extends AppCompatActivity {
                                 // Do any UI setup Using Friend Information
                                 friends = (ArrayList<Friend>)finalFriend;
 
+                                recyclerView = findViewById(R.id.recyclerView);
+
+                                for(Friend friend: friends) {
+                                     names.add((String) friend.getFriendData().get("name"));
+                                     carbon.add((double) friend.getFriendData().get("carbonAverage"));
+                                }
+
+                                FriendsAdapter friendAdapter = new FriendsAdapter(ct,names,carbon,images);
+                                recyclerView.setAdapter(friendAdapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(ct));
 
 
 
