@@ -9,19 +9,13 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class CameraActivity extends AppCompatActivity {
     Button btOpen;
@@ -48,7 +42,6 @@ public class CameraActivity extends AppCompatActivity {
                 // Open Camera
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 100);
-
             }
         });
     }
@@ -59,7 +52,8 @@ public class CameraActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 100) {
             // Get Capture Image
-            Bitmap captureImage = (Bitmap) data.getExtras().get("data");
+            Bitmap captureImage = (Bitmap)
+                    data.getExtras().get("data");
 
             PhotoProcessing pp = new PhotoProcessing();
             pp.imageFromBitmap(captureImage);

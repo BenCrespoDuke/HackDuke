@@ -100,7 +100,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             if(resultCode == RESULT_OK){
                 //Signed In
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
             }
             else {
 
