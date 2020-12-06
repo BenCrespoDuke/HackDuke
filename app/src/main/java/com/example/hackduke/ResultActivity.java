@@ -77,7 +77,7 @@ public class ResultActivity extends AppCompatActivity {
                 img.setImageBitmap(bitmap);
 
                 cam_button = (Button) findViewById(R.id.backToCam);
-                cam_button.setBackgroundColor(Color.WHITE);
+                cam_button.setBackgroundColor(Color.parseColor("#3ead60"));
                 cam_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -126,7 +126,6 @@ public class ResultActivity extends AppCompatActivity {
                 img.setImageBitmap(bitmap);
 
                 cam_button = (Button) findViewById(R.id.backToCam);
-                cam_button.setBackgroundColor(Color.WHITE);
                 cam_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
