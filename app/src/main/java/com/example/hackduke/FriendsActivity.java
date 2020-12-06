@@ -45,7 +45,7 @@ public class FriendsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Uid = FirebaseAuth.getInstance().getUid();
+        Uid = "0";
         setContentView(R.layout.activity_friends);
 
 
@@ -207,13 +207,15 @@ public class FriendsActivity extends AppCompatActivity {
 
                 if (value != null) {
                     List<DocumentChange> changes = value.getDocumentChanges();
-                    for (DocumentChange ch : changes) {
-                        DocumentSnapshot tempDoc = ch.getDocument();
-                        for(int i = friends.size()-1; i>-1;i--){
-                            if ((friends.get(i).getFriendData().containsKey("Uid")==true)&&(tempDoc.contains("Uid")==true)&&
-                                    (friends.get(i).getFriendData().get("Uid")).equals((String)tempDoc.get("Uid"))){
-                                friends.remove(i);
-                                friends.add(new Friend(tempDoc.getData()));
+                    if (changes.size() > 0) {
+                        for (DocumentChange ch : changes) {
+                            DocumentSnapshot tempDoc = ch.getDocument();
+                            for (int i = friends.size() - 1; i > -1; i--) {
+                                if ((friends.get(i).getFriendData().containsKey("Uid") == true) && (tempDoc.contains("Uid") == true) &&
+                                        (friends.get(i).getFriendData().get("Uid")).equals((String) tempDoc.get("Uid"))) {
+                                    friends.remove(i);
+                                    friends.add(new Friend(tempDoc.getData()));
+                                }
                             }
                         }
                     }
