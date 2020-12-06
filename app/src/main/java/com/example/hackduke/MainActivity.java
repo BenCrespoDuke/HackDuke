@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnToCamera;
         Button btnToFriends;
         Button btnToInstructions;
-        Button btnRequests;
+        Button btnToRequests;
 
         /*elementOne = findViewById(R.id.elementOne);
         elementTwo = findViewById(R.id.elementTwo);
@@ -86,6 +86,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 openStartActivity(v);
+            }
+        });
+
+        btnToRequests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRequestsActivity(v);
             }
         });
     }

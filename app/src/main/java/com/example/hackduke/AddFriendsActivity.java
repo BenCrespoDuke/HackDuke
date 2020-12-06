@@ -1,7 +1,11 @@
 package com.example.hackduke;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,15 +26,23 @@ public class AddFriendsActivity extends AppCompatActivity {
     public ArrayList<Friend> friendsRequesting = new ArrayList<Friend>();
     public RecyclerView recycle;
     public Context ct = this;
+    public Button btnToFriends;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_friends);
+        btnToFriends = findViewById(R.id.button5);
 
+        btnToFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFriendsActivity(v);
+            }
+        });
 
         //Get Users requesting to be friends
-        Query query = db.collection("user").whereEqualTo("Uid",0);
+        Query query = db.collection("user").whereEqualTo("Uid","0");
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -41,7 +53,7 @@ public class AddFriendsActivity extends AppCompatActivity {
                         //DocID = documentSnapshot.getId();
                         friendreq = (ArrayList<String>) documentSnapshot.get("friend requests");
                     }
-                    Query query1 = db.collection("users").whereArrayContains("email",friendreq);
+                    Query query1 = db.collection("users").whereIn("email",friendreq);
                     query1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
                         public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -67,5 +79,11 @@ public class AddFriendsActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    public void openFriendsActivity(View view){
+        Intent intent = new Intent(this, FriendsActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }
