@@ -81,6 +81,8 @@ public class FriendsActivity extends AppCompatActivity {
             }
         });
 
+
+
         db.collection("users").whereEqualTo("Uid",FirebaseAuth.getInstance().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
             public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
