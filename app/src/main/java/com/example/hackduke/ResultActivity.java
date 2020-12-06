@@ -13,22 +13,32 @@ import java.util.ArrayList;
 
 public class ResultActivity extends AppCompatActivity {
     private Button cam_button;
-    Calculation calc = new Calculation("Steak",1);
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        Bundle extras = getIntent().getExtras();
+        ArrayList<String> predictList = extras.getStringArrayList("data");
+        String name = searchFoodList(predictList);
+        Calculation calc = new Calculation(name,1);
         calc.calculate();
+
         TextView foodName = findViewById(R.id.foodName);
-        foodName.setText("Steak");
+        foodName.setText(name);
+
         TextView foodGroup= findViewById(R.id.foodGroup);
         foodGroup.setText(calc.getGroup().getName());
+
         TextView score = findViewById(R.id.score);
         score.setText(""+calc.getCo2());
+
         TextView  recommendation = findViewById(R.id.Recommendation);
         recommendation.setText(calc.getRec());
+
         ImageView img = findViewById(R.id.imageView2);
-      //  img.setImageBitmap(bm);
+        //img.setImageBitmap();
         cam_button = (Button) findViewById(R.id.backToCam);
         cam_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -38,8 +48,9 @@ public class ResultActivity extends AppCompatActivity {
         });
     }
     public String searchFoodList(ArrayList<String> list) {
+        Calculation temp = new Calculation("",1);
         for(int i = 0; i < list.size(); i++) {
-            if(calc.groupList.contains(list.get(i))) {
+            if(temp.groupList.contains(list.get(i))) {
                 return list.get(i);
             }
         }
@@ -49,13 +60,6 @@ public class ResultActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-//    private void getData(){
-//        if(getIntent().hasExtra("data")) {
-//            //myTexts = getIntent().getStringArrayListExtra("test");
-//             = getIntent().getStringExtra("data");
-//        } else{
-//            Log.d("FOOOOD1","NODATA");;
-//        }
-//    }
+
 
 }
