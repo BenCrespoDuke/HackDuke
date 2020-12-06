@@ -61,7 +61,7 @@
         android:gravity="center"
         android:text="Please take a clear picture of your food, and we will tell you how sustainable it is!"
         android:textSize="18dp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/purple_500"
         app:layout_constraintBottom_toTopOf="@+id/bt_open"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
