@@ -94,16 +94,16 @@ public class Calculation {
         int rnd = new Random().nextInt(minGroup.getFoodList().length);
         String dishRec = minGroup.getFoodList()[rnd];
         if(co2 < 15) {
-            return "Your choice of\n" +
-                    name + " consists of\n" +
-                    currentGroup.getName() + " which is moderately sustainable.\n" +
-                    "Consider more sustainable alternatives such as foods of \n" +
+            return "Your choice of " +
+                    name + " consists of " +
+                    currentGroup.getName() + " which is moderately sustainable. " +
+                    "Consider more sustainable alternatives such as foods of " +
                     minGroup + ", for example, " + dishRec + ".";
         }
-        return  "Your choice of\n" +
-                name + " consists of\n" +
-                currentGroup.getName() + " which is very unsustainable.\n" +
-                "Consider more sustainable alternatives such as foods of \n" +
+        return  "Your choice of " +
+                name + " consists of " +
+                currentGroup.getName() + " which is very unsustainable. " +
+                "Consider more sustainable alternatives such as foods of " +
                 minGroup + ", for example, " + dishRec + ".";
 
 
