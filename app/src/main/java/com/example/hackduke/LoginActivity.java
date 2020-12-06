@@ -53,8 +53,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onStart() {
         super.onStart();
         // Initialize Firebase Auth
-        mGoogleSignInClient.signOut();
-        FirebaseAuth.getInstance().signOut();
+        //mGoogleSignInClient.signOut();
+       // FirebaseAuth.getInstance().signOut();
         //updateUI(null);
         //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
        // updateUI(account);
@@ -71,7 +71,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     helper.createUser(user.getUid(),user.getDisplayName(),user.getEmail());
                 }
             }catch (Exception e){
-
+                Log.w("UserAdding","Fail",e);
             }
             Intent i = new Intent(LoginActivity.this, CameraActivity.class);
             startActivity(i);
