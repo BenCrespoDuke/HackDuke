@@ -64,13 +64,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     UploadData helper = new UploadData();
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     helper.createUser(user.getUid(),user.getDisplayName(),user.getEmail());
+                    Intent i = new Intent(LoginActivity.this, StartActivity.class);
+                    startActivity(i);
+                }
+                else {
+                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    startActivity(i);
                 }
             }catch (Exception e){
                 Log.w("UserAdding","Fail",e);
             }
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
-            startActivity(i);
-
         }
     }
 
