@@ -32,7 +32,6 @@ public class ResultActivity extends AppCompatActivity {
 
         alert.setMessage("Estimated Amount of Food(lbs)");
 
-// Set an EditText view to get user input
         EditText input = new EditText(this);
         alert.setView(input);
 
