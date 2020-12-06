@@ -30,6 +30,7 @@ import java.util.List;
 public class PhotoProcessing{
 FirebaseVisionImage image;
 List<FirebaseVisionImageLabel> currentLabels = new ArrayList<FirebaseVisionImageLabel>();
+ArrayList<String> myTexts = new ArrayList<>();
 
 FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageLabeler();
 
@@ -59,8 +60,7 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
 
 
 
-    public List<String> ProcessImage() {
-        List<String> myTexts = new ArrayList<>();
+    public void ProcessImage() {
         labeler.processImage(image).addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
             public void onSuccess(List<FirebaseVisionImageLabel> labels) {
                 // Task completed successfully
@@ -75,10 +75,11 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
                     myTexts.add(text);
                     String entityId = label.getEntityId();
                     float confidence = label.getConfidence();
-                    Log.d("second", text);
-                    Log.d("third", entityId);
-                    Log.d("fourth", String.valueOf(confidence));
+//                    Log.d("second", text);
+//                    Log.d("third", entityId);
+//                    Log.d("fourth", String.valueOf(confidence));
                 }
+                Log.d("ALIVE",myTexts.get(0));
             }
         })
                 .addOnFailureListener (new OnFailureListener() {
@@ -86,11 +87,12 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
                 Log.d("myTag", "no succ");
             }
         });
-        Log.d("ALIVE", myTexts.get(0));
-        return myTexts;
 
     }
 
+    public ArrayList<String> getMyTexts(){
+        return myTexts;
+    }
 
 
 
