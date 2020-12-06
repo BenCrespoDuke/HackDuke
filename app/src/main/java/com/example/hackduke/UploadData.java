@@ -17,6 +17,7 @@ import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.Transaction;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -95,8 +96,8 @@ public class UploadData {
         user.put("name",name);
         user.put("carbonAverage",0.0);
         user.put("number of meals", 0.0);
-        user.put("friends",new String[0]);
-        user.put("friend requests", new String[0]);
+        user.put("friends", new ArrayList<String>());
+        user.put("friend requests", new ArrayList<String>());
         db.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {

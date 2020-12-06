@@ -45,8 +45,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
         db.collection("meals").whereEqualTo("Uid", "1").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {

@@ -62,7 +62,8 @@ public class FriendsActivity extends AppCompatActivity {
                         Map<String,Object> tempMap;
                         for (QueryDocumentSnapshot document:task.getResult()) {
                             tempMap = document.getData();
-                            String[] temp =(String[])(tempMap.get("friends"));
+                            String[] temp = (String[]) ((ArrayList<String>)(tempMap.get("friends"))).toArray();
+
                             for(String string: temp){
                                 friendUID.add(string);
                             }
