@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     for(QueryDocumentSnapshot document: task.getResult()){
                         MealHistory.add(new meal(document.getData()));
                     }
+
                 }
 
             }
