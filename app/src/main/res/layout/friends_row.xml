@@ -42,8 +42,22 @@
                 android:layout_height="wrap_content"
                 android:text="Carbon Score"
                 android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="@+id/name"
-                app:layout_constraintTop_toBottomOf="@+id/name" />
+                tools:layout_editor_absoluteX="143dp"
+                tools:layout_editor_absoluteY="90dp" />
+
+            <TextView
+                android:id="@+id/meal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="168dp"
+                android:text="Meal"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@+id/carbonScore"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.392"
+                app:layout_constraintStart_toEndOf="@+id/pfp"
+                app:layout_constraintTop_toBottomOf="@+id/name"
+                app:layout_constraintVertical_bias="0.516" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

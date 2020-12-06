@@ -45,6 +45,7 @@ public class FriendsActivity extends AppCompatActivity {
     ArrayList<String> names = new ArrayList<>();
     ArrayList<Long> carbon = new ArrayList<>();
     ArrayList<Integer> images = new ArrayList<>();
+    ArrayList<String> meals = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -117,9 +118,7 @@ public class FriendsActivity extends AppCompatActivity {
                             images.add(R.drawable.pfp);
                         }
 
-                        FriendsAdapter friendAdapter = new FriendsAdapter(ct, names, carbon, images);
-                        recyclerView.setAdapter(friendAdapter);
-                        recyclerView.setLayoutManager(new LinearLayoutManager(ct));
+
                        if (friendUid.isEmpty() == false) {
                             db.collection("users").whereIn("Uid",friendUid).addSnapshotListener(new EventListener<QuerySnapshot>() {
                                 @Override
@@ -191,11 +190,25 @@ public class FriendsActivity extends AppCompatActivity {
                                     finalResult.add(new meal(map));
                                 }
                                 friendMeals = finalResult;
-                                // Do any UI setup Using Friend Meal Informatiobn
+                                // Do any UI setup Using Friend Meal Information
+
+                                for (Friend friend : friends){
+                                    for(meal m: friendMeals){
+                                        if(friend.getFriendData().get("Uid").equals(m.getMealDatat().get("Uid"))){
+                                            meals.add((String) m.getMealDatat().get("Food Stuff"));
+                                        }
+                                    }
+                                }
+
+                                FriendsAdapter friendAdapter = new FriendsAdapter(ct, names, carbon, images, meals);
+                                recyclerView.setAdapter(friendAdapter);
+                                recyclerView.setLayoutManager(new LinearLayoutManager(ct));
 
 
                             }
                         });
+
+
 
 
                     }

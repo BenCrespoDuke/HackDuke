@@ -18,13 +18,15 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
     ArrayList<String> names;
     ArrayList<Long> carbons;
     ArrayList<Integer> images;
+    ArrayList<String> meals;
     Context context;
 
-    public FriendsAdapter(Context ct, ArrayList<String> n, ArrayList<Long> c, ArrayList<Integer> img) {
+    public FriendsAdapter(Context ct, ArrayList<String> n, ArrayList<Long> c, ArrayList<Integer> img, ArrayList<String> m) {
         context = ct;
         names = n;
         carbons = c;
         images = img;
+        meals = m;
     }
     @NonNull
     @Override
@@ -40,6 +42,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
             holder.name.setText(names.get(position));
             holder.carbonScore.setText(String.valueOf(carbons.get(position)));
             holder.pfp.setImageResource(images.get(position));
+            holder.meal.setText(meals.get(position));
         }
 
     }
@@ -51,14 +54,14 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
 
     public class FriendsViewHolder extends RecyclerView.ViewHolder{
 
-        TextView name, carbonScore;
+        TextView name, carbonScore, meal;
         ImageView pfp;
-        ConstraintLayout mainLayout;
 
         public FriendsViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             carbonScore = itemView.findViewById(R.id.carbonScore);
+            meal = itemView.findViewById(R.id.meal);
             pfp = itemView.findViewById(R.id.pfp);
         }
     }

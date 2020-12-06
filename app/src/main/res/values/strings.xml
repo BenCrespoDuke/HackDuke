@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HackDuke</string>
+    <string name="app_name">EcoEats</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Camera</string>
     <string name="title_notifications">Friends</string>
