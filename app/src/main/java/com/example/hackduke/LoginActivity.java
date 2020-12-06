@@ -44,16 +44,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(this);
-
-        signOutButton = (Button) findViewById(R.id.signOutButton);
-        signOutButton.setOnClickListener(this);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
         // Initialize Firebase Auth
-        //mGoogleSignInClient.signOut();
+        mGoogleSignInClient.signOut();
        // FirebaseAuth.getInstance().signOut();
         //updateUI(null);
         //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
@@ -73,7 +70,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             }catch (Exception e){
                 Log.w("UserAdding","Fail",e);
             }
-            Intent i = new Intent(LoginActivity.this, CameraActivity.class);
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
 
         }
@@ -85,9 +82,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.sign_in_button:
                 signIn();
                 break;
-            case R.id.signOutButton:
-                signOut();
-                break;
+            default :
+                return;
         }
     }
 
