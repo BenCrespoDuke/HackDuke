@@ -15,8 +15,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-import java.util.ArrayList;
-
 public class CameraActivity extends AppCompatActivity {
     Button btOpen;
 
@@ -25,8 +23,16 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
 
+        Button btnToHome;
+        Button btnToFriends;
+
+        btnToHome = findViewById(R.id.home_button2);
+        btnToFriends = findViewById(R.id.friends_button2);
+
+
         // Assign Variable
         btOpen = findViewById(R.id.bt_open);
+
 
         //Request for Camera Permission
         if (ContextCompat.checkSelfPermission(CameraActivity.this,
@@ -42,6 +48,19 @@ public class CameraActivity extends AppCompatActivity {
                 // Open Camera
                 Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 startActivityForResult(intent, 100);
+            }
+        });
+        btnToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity(v);
+            }
+        });
+
+        btnToFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFriendsActivity(v);
             }
         });
     }
@@ -60,13 +79,25 @@ public class CameraActivity extends AppCompatActivity {
             pp.ProcessImage(this);
 
             //DO i delete this
-//            Intent i = new Intent(
-//                    this, MainActivity.class);
+            Intent i = new Intent(
+                    this, FriendsActivity.class);
 //            //i.putStringArrayListExtra("test", (ArrayList<String>) myTexts);
 //            i.putExtra("data",myTexts.get(0));
 //
 //
-//            this.startActivity(i);
+            this.startActivity(i);
         }
+    }
+
+    public void openMainActivity(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    public void openFriendsActivity(View view){
+        Intent intent = new Intent(this, FriendsActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 }

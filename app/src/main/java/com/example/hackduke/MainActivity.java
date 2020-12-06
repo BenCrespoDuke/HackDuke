@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
     public void openFriendsActivity(View view){
         Intent intent = new Intent(this, FriendsActivity.class);
         startActivity(intent);
-        //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     /*private void setData() {
