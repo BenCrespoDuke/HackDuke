@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ResultActivity extends AppCompatActivity {
     private Button cam_button;
@@ -50,11 +51,13 @@ public class ResultActivity extends AppCompatActivity {
     public String searchFoodList(ArrayList<String> list) {
         Calculation temp = new Calculation("",1);
         for(int i = 0; i < list.size(); i++) {
-            if(temp.groupList.contains(list.get(i))) {
-                return list.get(i);
+            for(FoodGroup f: temp.groupList) {
+                if(Arrays.asList(f.getFoodList()).contains(list.get(i))) {
+                    return list.get(i);
+                }
             }
         }
-        return "Not Found";
+        return list.get(0);
     }
     public void openHome() {
         Intent intent = new Intent(this, MainActivity.class);
