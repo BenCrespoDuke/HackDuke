@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,7 +25,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
-    private Button signOutButton;
     private SignInButton signInButton;
     private static final int RC_SIGN_IN = 123;
     private static final String TAG = "LoginActivity";
@@ -44,9 +42,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(this);
-
-        signOutButton = (Button) findViewById(R.id.signOutButton);
-        signOutButton.setOnClickListener(this);
     }
 
     protected void onStart() {
@@ -84,21 +79,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.sign_in_button:
                 signIn();
                 break;
-            case R.id.signOutButton:
-                signOut();
-                break;
         }
     }
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
-    }
-
-    private void signOut() {
-        FirebaseAuth.getInstance().signOut();
-        mGoogleSignInClient.signOut();
-        updateUI(null);
     }
 
     @Override
