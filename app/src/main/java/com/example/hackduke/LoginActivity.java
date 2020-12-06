@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,12 +20,11 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private TextView statusTextView;
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
     private Button signOutButton;
     private SignInButton signInButton;
-    private static final int RC_SIGN_IN = 9001;
+    private static final int RC_SIGN_IN = 123;
     private static final String TAG = "LoginActivity";
 
     @Override
@@ -39,7 +37,6 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 .build();
         // Build a GoogleSignInClient with the options specified by gso.
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-        statusTextView = (TextView) findViewById(R.id.text_home);
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(this);
 
