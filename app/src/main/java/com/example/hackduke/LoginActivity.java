@@ -54,8 +54,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     }
 
     private void updateUI(GoogleSignInAccount currentUser) {
-        Intent i = new Intent(LoginActivity.this, MainActivity.class);
-        startActivity(i);
+        if(currentUser != null) {
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            startActivity(i);
+        }
     }
 
     @Override
