@@ -80,7 +80,7 @@ public class CameraActivity extends AppCompatActivity {
 
             //DO i delete this
             Intent i = new Intent(
-                    this, FriendsActivity.class);
+                    this, MainActivity.class);
 //            //i.putStringArrayListExtra("test", (ArrayList<String>) myTexts);
 //            i.putExtra("data",myTexts.get(0));
 //
@@ -92,7 +92,7 @@ public class CameraActivity extends AppCompatActivity {
     public void openMainActivity(View view){
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
     }
 
     public void openFriendsActivity(View view){

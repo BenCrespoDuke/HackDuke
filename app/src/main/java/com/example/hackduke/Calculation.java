@@ -74,10 +74,10 @@ public class Calculation {
         return currentGroup;
     }
     public String getRec() {
-        if(co2 < 5) {
+        if(currentGroup.getCo2lb() < 5) {
             return "Congratulations, your choice of " +
-                    name + " consists of " +
-                    currentGroup.getName() + " which is sustainable!";
+                    name + " is in the " +
+                    currentGroup.getName().toLowerCase() + " group which is sustainable!";
         }
         ArrayList<FoodGroup> sameType = new ArrayList<>();
         for(FoodGroup f: groupList) {
@@ -93,18 +93,18 @@ public class Calculation {
         }
         int rnd = new Random().nextInt(minGroup.getFoodList().length);
         String dishRec = minGroup.getFoodList()[rnd];
-        if(co2 < 15) {
+        if(currentGroup.getCo2lb() < 15) {
             return "Your choice of " +
-                    name + " consists of " +
-                    currentGroup.getName() + " which is moderately sustainable. " +
+                    name + " is in the " +
+                    currentGroup.getName().toLowerCase() + " group which is moderately sustainable. " +
                     "Consider more sustainable alternatives such as foods of " +
-                    minGroup + ", for example, " + dishRec + ".";
+                    minGroup.getName().toLowerCase() + ", for example, " + dishRec + ".";
         }
         return  "Your choice of " +
-                name + " consists of " +
-                currentGroup.getName() + " which is very unsustainable. " +
+                name + " is in the " +
+                currentGroup.getName().toLowerCase() + " group which is very unsustainable. " +
                 "Consider more sustainable alternatives such as foods of " +
-                minGroup + ", for example, " + dishRec + ".";
+                minGroup.getName().toLowerCase() + ", for example, " + dishRec + ".";
 
 
     }
