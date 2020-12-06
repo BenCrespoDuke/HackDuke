@@ -49,12 +49,11 @@ public class ResultActivity extends AppCompatActivity {
     }
     public String searchFoodList(ArrayList<String> list) {
         Calculation temp = new Calculation("",1);
-        for(int i = 0; i < list.size(); i++) {
-            if(temp.groupList.contains(list.get(i))) {
-                return list.get(i);
-            }
+        String s = "";
+        for(int i = 0; i < 5; i++) {
+            s = s + "\n"+ list.get(i);
         }
-        return "Not Found";
+        return s;
     }
     public void openHome() {
         Intent intent = new Intent(this, MainActivity.class);
