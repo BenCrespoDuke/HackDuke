@@ -50,7 +50,7 @@ public class ResultActivity extends AppCompatActivity {
     public String searchFoodList(ArrayList<String> list) {
         Calculation temp = new Calculation("",1);
         String s = "";
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < list.size(); i++) {
             s = s + "\n"+ list.get(i);
         }
         return s;
