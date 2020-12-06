@@ -69,6 +69,8 @@ public class ResultActivity extends AppCompatActivity {
                     score.setText(""+calc.getCo2() +" lbs");
                     register.setText("Successfully Registered Food");
                     recommendation.setText(calc.getRec());
+                    UploadData helper = new UploadData();
+                            helper.uploadMeal(0+"","",calc.getCo2(),calc.getName(),true);
                 }
 
                 ImageView img = findViewById(R.id.imageView2);
