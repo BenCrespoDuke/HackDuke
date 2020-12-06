@@ -67,7 +67,7 @@ public class CameraActivity extends AppCompatActivity {
             Intent i = new Intent(
                     this, MainActivity.class);
             //i.putStringArrayListExtra("test", (ArrayList<String>) myTexts);
-            i.putExtra("data", "FEELING");
+            i.putExtra("data", "Feeling");
             this.startActivity(i);
         }
     }

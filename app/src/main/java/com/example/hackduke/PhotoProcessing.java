@@ -86,6 +86,7 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
                 Log.d("myTag", "no succ");
             }
         });
+        Log.d("ALIVE", myTexts.get(0));
         return myTexts;
 
     }
