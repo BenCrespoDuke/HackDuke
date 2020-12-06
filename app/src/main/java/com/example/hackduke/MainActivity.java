@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnToCamera;
         Button btnToFriends;
         Button btnToInstructions;
+        Button btnRequests;
 
         /*elementOne = findViewById(R.id.elementOne);
         elementTwo = findViewById(R.id.elementTwo);
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
         btnToCamera = findViewById(R.id.camera_button);
         btnToFriends = findViewById(R.id.friends_button);
         btnToInstructions = findViewById(R.id.instructions_button);
+        btnToRequests = findViewById(R.id.requests);
 
         //getData();
         //setData();
@@ -110,6 +112,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openStartActivity(View view){
         Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
+    }
+
+    public void openRequestsActivity(View view){
+        Intent intent = new Intent(this, AddFriendsActivity.class);
         startActivity(intent);
     }
 

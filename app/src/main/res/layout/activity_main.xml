@@ -51,4 +51,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/requests"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Friend Requests"
+        app:layout_constraintBottom_toTopOf="@+id/camera_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/instructions_button"
+        app:layout_constraintVertical_bias="0.044" />
 </androidx.constraintlayout.widget.ConstraintLayout>
