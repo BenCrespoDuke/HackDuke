@@ -41,8 +41,6 @@ public class MainActivity extends AppCompatActivity {
         //getData();
         //setData();
 
-
-
         db.collection("meals").whereEqualTo("Uid", 1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -72,8 +70,14 @@ public class MainActivity extends AppCompatActivity {
                 openCameraActivity(v);
             }
         });
-    }
 
+        btnToFriends.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFriendsActivity(v);
+            }
+        });
+    }
 
     /*private void getData(){
         if(getIntent().hasExtra("data")) {
@@ -87,6 +91,12 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CameraActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    public void openFriendsActivity(View view){
+        Intent intent = new Intent(this, FriendsActivity.class);
+        startActivity(intent);
+        //overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     /*private void setData() {

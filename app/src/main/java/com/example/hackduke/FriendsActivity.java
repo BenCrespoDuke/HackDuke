@@ -73,15 +73,12 @@ public class FriendsActivity extends AppCompatActivity {
                                     (friends.get(i).getFriendData().get("Uid")).equals((String)tempDoc.get("Uid"))){
                                 friends.remove(i);
                                 friends.add(new Friend(tempDoc.getData()));
-
                             }
                         }
                     }
                 }
             }
         });
-
-
 
         db.collection("users").whereEqualTo("Uid",FirebaseAuth.getInstance().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
             @Override
@@ -92,10 +89,7 @@ public class FriendsActivity extends AppCompatActivity {
                 }
                 if(value!=null){
                     List<DocumentChange> ch = value.getDocumentChanges();
-
-
                 }
-
             }
         });
     }
