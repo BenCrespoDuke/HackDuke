@@ -2,6 +2,7 @@ package com.example.hackduke;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.hardware.camera2.CameraAccessException;
 import android.hardware.camera2.CameraCharacteristics;
@@ -26,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-public class PhotoProcessing {
+public class PhotoProcessing{
 FirebaseVisionImage image;
 List<FirebaseVisionImageLabel> currentLabels = new ArrayList<FirebaseVisionImageLabel>();
 
@@ -58,20 +59,26 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
 
 
 
-    public void ProcessImage() {
+    public List<String> ProcessImage() {
+        List<String> myTexts = new ArrayList<>();
         labeler.processImage(image).addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
             public void onSuccess(List<FirebaseVisionImageLabel> labels) {
                 // Task completed successfully
                 //
-                Log.d("first", "succ");
                 currentLabels.clear();
+                myTexts.clear();
                 for (FirebaseVisionImageLabel item: labels) {
                     currentLabels.add(item);
                 }
-                Log.d("second", currentLabels.get(0).getText());
-                Log.d("second", currentLabels.get(0).getEntityId());
-                Log.d("second", String.valueOf(currentLabels.get(0).getConfidence()));
-
+                for(FirebaseVisionImageLabel label: currentLabels) {
+                    String text = label.getText();
+                    myTexts.add(text);
+                    String entityId = label.getEntityId();
+                    float confidence = label.getConfidence();
+                    Log.d("second", text);
+                    Log.d("third", entityId);
+                    Log.d("fourth", String.valueOf(confidence));
+                }
             }
         })
                 .addOnFailureListener (new OnFailureListener() {
@@ -79,6 +86,7 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
                 Log.d("myTag", "no succ");
             }
         });
+        return myTexts;
 
     }
 

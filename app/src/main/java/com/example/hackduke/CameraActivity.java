@@ -20,6 +20,9 @@ import androidx.core.content.ContextCompat;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CameraActivity extends AppCompatActivity {
     Button btOpen;
 
@@ -60,9 +63,10 @@ public class CameraActivity extends AppCompatActivity {
 
             PhotoProcessing pp = new PhotoProcessing();
             pp.imageFromBitmap(captureImage);
-            pp.ProcessImage();
+            List<String> myTexts = pp.ProcessImage();
             Intent i = new Intent(
                     CameraActivity.this, MainActivity.class);
+            getIntent().putStringArrayListExtra("Test", (ArrayList<String>) myTexts);
             startActivity(i);
         }
     }

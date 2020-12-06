@@ -33,8 +33,21 @@
 <!--        app:layout_constraintTop_toTopOf="parent"-->
 <!--        app:layout_constraintVertical_bias="1.0"-->
 <!--        app:navGraph="@navigation/mobile_navigation" />-->
+    <TextView
+        android:id="@+id/elementOne"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
+    <TextView
+        android:id="@+id/elementTwo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 
-
-
+    <TextView
+        android:id="@+id/elementThree"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView" />
 </LinearLayout>
