@@ -2,7 +2,6 @@ package com.example.hackduke;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -10,14 +9,15 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.util.ArrayList;
+
 public class ResultActivity extends AppCompatActivity {
     private Button cam_button;
-
+    Calculation calc = new Calculation("Steak",1);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        Calculation calc = new Calculation("Steak",1);
         calc.calculate();
         TextView foodName = findViewById(R.id.foodName);
         foodName.setText("Steak");
@@ -36,6 +36,14 @@ public class ResultActivity extends AppCompatActivity {
                 openHome();
             }
         });
+    }
+    public String searchFoodList(ArrayList<String> list) {
+        for(int i = 0; i < list.size(); i++) {
+            if(calc.groupList.contains(list.get(i))) {
+                return list.get(i);
+            }
+        }
+        return "Not Found";
     }
     public void openHome() {
         Intent intent = new Intent(this, MainActivity.class);
