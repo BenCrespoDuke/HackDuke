@@ -1,31 +1,58 @@
 package com.example.hackduke;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
+import android.util.Log;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    //ArrayList<String> myTexts = new ArrayList<>();
-    //String data;
-
-    Button btnToCamera;
-    Button btnToFriends;
+    TextView elementOne, elementTwo, elementThree;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ArrayList<meal> MealHistory = new ArrayList<meal>();
+    ArrayList<String> myTexts = new ArrayList<>();
+    String data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnToCamera = findViewById(R.id.camera_button);
-        btnToFriends = findViewById(R.id.friends_button);
+        elementOne = findViewById(R.id.elementOne);
+        elementTwo = findViewById(R.id.elementTwo);
+        elementThree = findViewById(R.id.elementThree);
 
-        //getData();
+        getData();
+        setData();
 
-        /*BottomNavigationView navView = findViewById(R.id.nav_view);
+        db.collection("meals").whereEqualTo("Uid", 1).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()==true){
+                    for(QueryDocumentSnapshot document: task.getResult()){
+                        MealHistory.add(new meal(document.getData()));
+                    }
+                }
+
+            }
+        });
+
+        BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -33,30 +60,20 @@ public class MainActivity extends AppCompatActivity {
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        NavigationUI.setupWithNavController(navView, navController);*/
-
-        btnToCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCameraActivity(v);
-            }
-        });
+        NavigationUI.setupWithNavController(navView, navController);
     }
 
-    /*private void getData(){
+    private void getData(){
         if(getIntent().hasExtra("data")) {
             //myTexts = getIntent().getStringArrayListExtra("test");
             data = getIntent().getStringExtra("data");
         } else{
             Log.d("FOOOOD1","NODATA");;
         }
-    }*/
-
-    public void openCameraActivity(View view){
-        Intent intent = new Intent(this, CameraActivity.class);
-        startActivity(intent);
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
     }
 
+    private void setData() {
 
+        elementOne.setText(data);
+    }
 }

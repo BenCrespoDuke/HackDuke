@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     private GoogleSignInClient mGoogleSignInClient;
     private FirebaseAuth mAuth;
+    private Button signOutButton;
     private SignInButton signInButton;
     private static final int RC_SIGN_IN = 123;
     private static final String TAG = "LoginActivity";
@@ -42,34 +44,38 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         signInButton = (SignInButton) findViewById(R.id.sign_in_button);
         signInButton.setOnClickListener(this);
+
+        signOutButton = (Button) findViewById(R.id.signOutButton);
+        signOutButton.setOnClickListener(this);
     }
 
+    @Override
     protected void onStart() {
         super.onStart();
         // Initialize Firebase Auth
-        mGoogleSignInClient.signOut();
-        FirebaseAuth.getInstance().signOut();
         //mGoogleSignInClient.signOut();
-        // FirebaseAuth.getInstance().signOut();
+       // FirebaseAuth.getInstance().signOut();
         //updateUI(null);
         //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-        // updateUI(account);
+       // updateUI(account);
+
     }
+
     private void updateUI(GoogleSignInAccount currentUser) {
-        if (currentUser != null) {
+        if(currentUser != null) {
             try {
-                Query query = db.collection("users").whereEqualTo("Uid", FirebaseAuth.getInstance().getUid());
-                if (query == null) {
+                Query query = db.collection("users").whereEqualTo("Uid",FirebaseAuth.getInstance().getUid());
+                if(query==null){
                     UploadData helper = new UploadData();
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    helper.createUser(user.getUid(), user.getDisplayName(), user.getEmail());
+                    helper.createUser(user.getUid(),user.getDisplayName(),user.getEmail());
                 }
-            } catch (Exception e) {
-
-                Log.w("UserAdding", "Fail", e);
+            }catch (Exception e){
+                Log.w("UserAdding","Fail",e);
             }
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            Intent i = new Intent(LoginActivity.this, CameraActivity.class);
             startActivity(i);
+
         }
     }
 
@@ -79,12 +85,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
             case R.id.sign_in_button:
                 signIn();
                 break;
+            case R.id.signOutButton:
+                signOut();
+                break;
         }
     }
 
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void signOut() {
+        FirebaseAuth.getInstance().signOut();
+        mGoogleSignInClient.signOut();
+        updateUI(null);
     }
 
     @Override

@@ -24,7 +24,7 @@ public class UploadData {
 
     }
 
-    public void uploadMeal(String Uid, String date, double carbon, String[] foodStuff, boolean isVisible){
+    public void uploadMeal(String Uid, String date, double carbon, String foodStuff, boolean isVisible){
         Map<String,Object> meal = new HashMap<>();
         meal.put("Uid",Uid);
         meal.put("date",date);
@@ -34,7 +34,7 @@ public class UploadData {
         Date dateAssist = new Date();
         long time = dateAssist.getTime();
         meal.put("time",time);
-        db.collection("meals").add(meal).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+        db.collection("Meals").add(meal).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
 

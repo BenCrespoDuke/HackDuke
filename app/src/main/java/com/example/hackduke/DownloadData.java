@@ -20,6 +20,9 @@ import java.util.Map;
 
 public class DownloadData {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+    public ArrayList<meal> meals = new ArrayList<meal>();
+    public  ArrayList<Friend> friends = new ArrayList<Friend>();
     public DownloadData(){
 
     }
@@ -81,7 +84,7 @@ public class DownloadData {
 
     public List<Friend> getFriends(String Uid){
        List<String> friends = new ArrayList<String>();
-
+        List<Friend> finalFriend = new ArrayList<Friend>();
         Query friendQuery = db.collection("users").whereEqualTo("Uid",Uid);
         friendQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -101,18 +104,21 @@ public class DownloadData {
 
                     Log.w("Cloud Activty","ERROR GETTING USER MEALS",task.getException());
                 }
+
+
+                db.collection("users").whereIn("Uid",friends).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if(task.isSuccessful()==true){
+                            for(DocumentSnapshot document: task.getResult()){
+                                finalFriend.add(new Friend(document.getData()));
+                            }
+                        }
+                    }
+                });
+
             }
-        });
-        List<Friend> finalFriend = new ArrayList<Friend>();
-        db.collection("users").whereIn("Uid",friends).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-            if(task.isSuccessful()==true){
-                for(DocumentSnapshot document: task.getResult()){
-                    finalFriend.add(new Friend(document.getData()));
-                }
-            }
-            }
+
         });
         return finalFriend;
     }
@@ -138,6 +144,44 @@ public class DownloadData {
 
         return friends;
     }
+
+    public void getFiendMeals(List<Friend> friends){
+        ArrayList<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
+
+        List<String> friendUids = new ArrayList<String>();
+        for (Friend item:friends) {
+            if(item.getFriendData().containsKey("Uid")){
+                friendUids.add((String) item.getFriendData().get("Uid"));
+            }
+
+        }
+
+        db.collection("Meals").whereIn("Uid", Arrays.asList(friends)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if(task.isSuccessful()==true){
+                    for (QueryDocumentSnapshot document: task.getResult()) {
+                        if (document.contains("isVisible")==true && (Boolean)document.get("isVisible").equals(new Boolean(false)))
+                            result.add(document.getData());
+                    }
+                }
+                else{
+                    Log.w("Cloud Activty","ERROR GETTING USER MEALS",task.getException());
+                }
+                ArrayList<meal> finalResult = new ArrayList<meal>();
+                for (Map<String,Object> map:result) {
+                    finalResult.add(new meal(map));
+                }
+                meals = finalResult;
+            }
+        });
+
+
+
+    }
+
+
+
 
 
 }
