@@ -201,6 +201,7 @@ public class FriendsActivity extends AppCompatActivity {
                                     for(meal m: friendMeals){
                                         //Log.d("ALIVEFFFF", (String) m.getMealDatat().get("Food Stuff"));
                                         if(friend.getFriendData().get("Uid").equals(m.getMealDatat().get("Uid"))){
+                                            Log.d("MATCH", (String) friend.getFriendData().get("Uid") + " = " +  m.getMealDatat().get("Uid"));
                                             meals.add((String) m.getMealDatat().get("Food Stuff"));
                                             mealDetected = true;
                                         }
