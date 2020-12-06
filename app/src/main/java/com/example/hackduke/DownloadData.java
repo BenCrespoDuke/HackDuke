@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
@@ -47,7 +48,15 @@ public class DownloadData {
 
     public ArrayList<meal> getFiendMeals(String Uid){
         ArrayList<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
-        List<String> friends = this.getFriends(Uid);
+        List<Friend> friends = this.getFriends(Uid);
+        List<String> friendUids = new ArrayList<String>();
+        for (Friend item:friends) {
+            if(item.getFriendData().containsKey("Uid")){
+                friendUids.add((String) item.getFriendData().get("Uid"));
+            }
+
+        }
+
         db.collection("Meals").whereIn("Uid", Arrays.asList(friends)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -69,7 +78,7 @@ public class DownloadData {
         return finalResult;
     }
 
-    public List<String> getFriends(String Uid){
+    public List<Friend> getFriends(String Uid){
        List<String> friends = new ArrayList<String>();
 
         Query friendQuery = db.collection("users").whereEqualTo("Uid",Uid);
@@ -93,8 +102,22 @@ public class DownloadData {
                 }
             }
         });
-        return friends;
+        List<Friend> finalFriend = new ArrayList<Friend>();
+        db.collection("users").whereIn("Uid",friends).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+            if(task.isSuccessful()==true){
+                for(DocumentSnapshot document: task.getResult()){
+                    finalFriend.add(new Friend(document.getData()));
+                }
+            }
+            }
+        });
+        return finalFriend;
     }
+
+
+
     public List<String> getFriendRequest(String Gmail){
         List<String> friends = new ArrayList<String>();
 
