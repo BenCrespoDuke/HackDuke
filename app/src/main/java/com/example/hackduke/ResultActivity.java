@@ -12,14 +12,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class ResultActivity extends AppCompatActivity {
     private Button cam_button;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
-        Calculation calc = new Calculation(name,1);
+        Calculation calc = new Calculation("Steak",1);
         calc.calculate();
         TextView foodName = findViewById(R.id.foodName);
-        foodName.setText(name);
+        foodName.setText("Steak");
         TextView foodGroup= findViewById(R.id.foodGroup);
         foodGroup.setText(calc.getGroup().getName());
         TextView score = findViewById(R.id.score);
@@ -27,7 +28,7 @@ public class ResultActivity extends AppCompatActivity {
         TextView  recommendation = findViewById(R.id.Recommendation);
         recommendation.setText(calc.getRec());
         ImageView img = findViewById(R.id.imageView2);
-        img.setImageBitmap(bm);
+      //  img.setImageBitmap(bm);
         cam_button = (Button) findViewById(R.id.backToCam);
         cam_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,17 +41,13 @@ public class ResultActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-    private void getData(){
-        if(getIntent().hasExtra("data")) {
-            //myTexts = getIntent().getStringArrayListExtra("test");
-            data = getIntent().getStringExtra("data");
-        } else{
-            Log.d("FOOOOD1","NODATA");;
-        }
-    }
+//    private void getData(){
+//        if(getIntent().hasExtra("data")) {
+//            //myTexts = getIntent().getStringArrayListExtra("test");
+//             = getIntent().getStringExtra("data");
+//        } else{
+//            Log.d("FOOOOD1","NODATA");;
+//        }
+//    }
 
-    private void setData() {
-
-        elementOne.setText(data);
-    }
 }
