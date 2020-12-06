@@ -13,16 +13,6 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:id="@+id/image_view"
-        app:layout_constraintBottom_toTopOf="@+id/nav_view"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/nav_host_fragment"/>
-
     <Button
         android:id="@+id/bt_open"
         android:layout_width="175dp"

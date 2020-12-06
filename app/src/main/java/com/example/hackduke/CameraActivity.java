@@ -21,7 +21,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 public class CameraActivity extends AppCompatActivity {
-    ImageView imageView;
     Button btOpen;
 
     @Override
@@ -30,7 +29,6 @@ public class CameraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_camera);
 
         // Assign Variable
-        imageView = findViewById(R.id.image_view);
         btOpen = findViewById(R.id.bt_open);
 
         //Request for Camera Permission
@@ -59,8 +57,6 @@ public class CameraActivity extends AppCompatActivity {
         if (requestCode == 100) {
             // Get Capture Image
             Bitmap captureImage = (Bitmap) data.getExtras().get("data");
-            // Set Capture Image to ImageView
-            imageView.setImageBitmap(captureImage);
 
             PhotoProcessing pp = new PhotoProcessing();
             pp.imageFromBitmap(captureImage);
