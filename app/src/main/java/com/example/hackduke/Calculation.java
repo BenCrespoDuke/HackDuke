@@ -109,5 +109,9 @@ public class Calculation {
 
     }
 
+    public String getName(){
+        return name;
+    }
+
 
 }
