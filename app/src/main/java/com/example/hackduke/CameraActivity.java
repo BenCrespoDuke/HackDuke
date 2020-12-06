@@ -65,6 +65,9 @@ public class CameraActivity extends AppCompatActivity {
             PhotoProcessing pp = new PhotoProcessing();
             pp.imageFromBitmap(captureImage);
             pp.ProcessImage();
+            Intent i = new Intent(
+                    CameraActivity.this, MainActivity.class);
+            startActivity(i);
         }
     }
 }

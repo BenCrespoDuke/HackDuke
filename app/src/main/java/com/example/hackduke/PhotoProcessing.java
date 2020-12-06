@@ -8,6 +8,7 @@ import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraManager;
 import android.media.Image;
 import android.os.Build;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Surface;
 
@@ -62,7 +63,7 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
             public void onSuccess(List<FirebaseVisionImageLabel> labels) {
                 // Task completed successfully
                 //
-                System.out.println("succ");
+                Log.d("first", "succ");
                 currentLabels.clear();
                 for (FirebaseVisionImageLabel item: labels) {
                     currentLabels.add(item);
@@ -72,8 +73,7 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
         })
                 .addOnFailureListener (new OnFailureListener() {
             public void onFailure(Exception e) {
-                System.out.println(e.toString());
-                System.out.println("no Succ");
+                Log.d("myTag", "no succ");
             }
         });
 
