@@ -8,6 +8,9 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
+import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.Transaction;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -45,9 +48,10 @@ public class UploadData {
     }
 
 
-    public void createUser(String Uid, String name){
+    public void createUser(String Uid, String name, String email){
         Map<String,Object> user = new HashMap<>();
         user.put("Uid",Uid);
+        user.put("email", email);
         user.put("name",name);
         db.collection("users").add(user).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -64,6 +68,18 @@ public class UploadData {
 
     }
 
+    public void makeFriendRequest(String gmail){
+        final Query reff = db.collection("users").whereEqualTo("email",gmail);
+
+                db.runTransaction(new Transaction.Function<Object>() {
+                    @Override
+                    public Object apply(Transaction transaction) throws FirebaseFirestoreException{
+
+
+                        return null;
+                    }
+                });
+                }
 
 }
 

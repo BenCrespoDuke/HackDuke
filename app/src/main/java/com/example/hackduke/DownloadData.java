@@ -91,5 +91,25 @@ public class DownloadData {
         });
         return friends;
     }
+    public List<String> getFriendRequest(String Gmail){
+        List<String> friends = new ArrayList<String>();
+
+        db.collection("user").whereEqualTo("email", Gmail).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful() == true) {
+                    for (QueryDocumentSnapshot documents : task.getResult()) {
+                        String[] temp =(String[])(documents.getData().get("friends requests"));
+                        for(String string: temp){
+                            friends.add(string);
+                        }
+                    }
+                }
+            }
+        });
+
+        return friends;
+    }
+
 
 }
