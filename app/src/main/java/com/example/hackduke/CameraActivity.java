@@ -86,6 +86,8 @@ public class CameraActivity extends AppCompatActivity {
 //
 //
             this.startActivity(i);
+
+
         }
     }
 
@@ -100,4 +102,6 @@ public class CameraActivity extends AppCompatActivity {
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
+
+
 }
