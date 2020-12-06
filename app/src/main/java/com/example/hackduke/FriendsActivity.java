@@ -80,5 +80,21 @@ public class FriendsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        db.collection("users").whereEqualTo("Uid",FirebaseAuth.getInstance().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+            @Override
+            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                if(error != null){
+                    Log.w("Cloud Activity", "Listen failed", error);
+                    return;
+                }
+                if(value!=null){
+                    List<DocumentChange> ch = value.getDocumentChanges();
+
+
+                }
+
+            }
+        });
     }
 }
