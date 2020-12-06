@@ -13,10 +13,14 @@ import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.Surface;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.common.FirebaseVisionImage;
 import com.google.firebase.ml.vision.common.FirebaseVisionImageMetadata;
@@ -60,7 +64,7 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
 
 
 
-    public void ProcessImage() {
+    public void ProcessImage(AppCompatActivity page) {
         labeler.processImage(image).addOnSuccessListener(new OnSuccessListener<List<FirebaseVisionImageLabel>>() {
             public void onSuccess(List<FirebaseVisionImageLabel> labels) {
                 // Task completed successfully
@@ -72,32 +76,46 @@ FirebaseVisionImageLabeler labeler = FirebaseVision.getInstance().getCloudImageL
                 }
                 for(FirebaseVisionImageLabel label: currentLabels) {
                     String text = label.getText();
-                    myTexts.add(text);
                     String entityId = label.getEntityId();
                     float confidence = label.getConfidence();
 //                    Log.d("second", text);
 //                    Log.d("third", entityId);
 //                    Log.d("fourth", String.valueOf(confidence));
                 }
-                Log.d("ALIVE",myTexts.get(0));
+
             }
         })
                 .addOnFailureListener (new OnFailureListener() {
             public void onFailure(Exception e) {
                 Log.d("myTag", "no succ");
             }
-        });
+        }).addOnCompleteListener(new OnCompleteListener<List<FirebaseVisionImageLabel>>() {
+            @Override
+            public void onComplete(@NonNull Task<List<FirebaseVisionImageLabel>> task) {
+                if(task.isSuccessful()){
+                    //SO use currentlabels?
+                    for(FirebaseVisionImageLabel label: task.getResult()){
+                        String text = label.getText();
+                        myTexts.add(text);
+                    }
 
+                    ArrayList<String> myTexts;
+
+                }
+                Log.d("ALIVE",myTexts.get(0));
+                Intent i = new Intent(
+                        page, MainActivity.class);
+                //i.putStringArrayListExtra("test", (ArrayList<String>) myTexts);
+                i.putExtra("data",myTexts.get(0));
+                page.startActivity(i);
+            }
+
+        });
     }
 
-    public ArrayList<String> getMyTexts(){
+    public ArrayList<String> getMyTexts() {
         return myTexts;
     }
-
-
-
-
-
 
     //googles stuff IDK how it works
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();

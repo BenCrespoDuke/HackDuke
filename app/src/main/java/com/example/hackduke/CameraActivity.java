@@ -57,13 +57,16 @@ public class CameraActivity extends AppCompatActivity {
 
             PhotoProcessing pp = new PhotoProcessing();
             pp.imageFromBitmap(captureImage);
-            pp.ProcessImage();
-            ArrayList<String> myTexts = pp.getMyTexts();
-            Intent i = new Intent(
-                    this, MainActivity.class);
-            //i.putStringArrayListExtra("test", (ArrayList<String>) myTexts);
-            i.putExtra("data","Feeling");
-            this.startActivity(i);
+            pp.ProcessImage(this);
+
+            //DO i delete this
+//            Intent i = new Intent(
+//                    this, MainActivity.class);
+//            //i.putStringArrayListExtra("test", (ArrayList<String>) myTexts);
+//            i.putExtra("data",myTexts.get(0));
+//
+//
+//            this.startActivity(i);
         }
     }
 }
