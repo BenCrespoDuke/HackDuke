@@ -1,5 +1,6 @@
 package com.example.hackduke;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -32,18 +33,17 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnToCamera;
         Button btnToFriends;
+        Button btnToInstructions;
 
         /*elementOne = findViewById(R.id.elementOne);
         elementTwo = findViewById(R.id.elementTwo);
         elementThree = findViewById(R.id.elementThree);*/
         btnToCamera = findViewById(R.id.camera_button);
         btnToFriends = findViewById(R.id.friends_button);
+        btnToInstructions = findViewById(R.id.instructions_button);
 
         //getData();
         //setData();
-
-
-
 
         db.collection("meals").whereEqualTo("Uid", "1").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -52,9 +52,7 @@ public class MainActivity extends AppCompatActivity {
                     for(QueryDocumentSnapshot document: task.getResult()){
                         MealHistory.add(new meal(document.getData()));
                     }
-
                 }
-
             }
         });
 
@@ -81,6 +79,13 @@ public class MainActivity extends AppCompatActivity {
                 openFriendsActivity(v);
             }
         });
+
+        btnToInstructions.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openStartActivity(v);
+            }
+        });
     }
 
     /*private void getData(){
@@ -101,6 +106,11 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, FriendsActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+    }
+
+    public void openStartActivity(View view){
+        Intent intent = new Intent(this, StartActivity.class);
+        startActivity(intent);
     }
 
     /*private void setData() {

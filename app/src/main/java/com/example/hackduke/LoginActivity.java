@@ -64,11 +64,11 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     UploadData helper = new UploadData();
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     helper.createUser(user.getUid(),user.getDisplayName(),user.getEmail());
-                    Intent i = new Intent(LoginActivity.this, StartActivity.class);
+                    Intent i = new Intent(this, StartActivity.class);
                     startActivity(i);
                 }
                 else {
-                    Intent i = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent i = new Intent(this, MainActivity.class);
                     startActivity(i);
                 }
             }catch (Exception e){

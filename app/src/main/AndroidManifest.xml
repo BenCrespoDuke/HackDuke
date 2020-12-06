@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HackDuke">
-        <activity android:name=".StartActivity"></activity>
+        <activity android:name=".AddFriendsActivity"></activity>
+        <activity android:name=".StartActivity" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".FriendsActivity" />
         <activity android:name=".LoginActivity">

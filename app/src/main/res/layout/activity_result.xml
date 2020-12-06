@@ -4,7 +4,7 @@
     android:id="@+id/whole"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="invisible"
+    android:visibility="visible"
     tools:context=".ui.">
 
 
@@ -30,7 +30,7 @@
         android:layout_marginTop="24dp"
         android:text="Successfully Registered Food"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        android:textColor="#673AB7"
+        android:textColor="#4CAF50"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,6 +58,7 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="56dp"
         android:text="Back to Home"
+        app:iconTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
