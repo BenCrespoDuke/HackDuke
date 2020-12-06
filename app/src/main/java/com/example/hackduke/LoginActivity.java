@@ -55,7 +55,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void updateUI(GoogleSignInAccount currentUser) {
         if(currentUser != null) {
-            Intent i = new Intent(LoginActivity.this, MainActivity.class);
+            Intent i = new Intent(LoginActivity.this, CameraActivity.class);
             startActivity(i);
         }
     }
