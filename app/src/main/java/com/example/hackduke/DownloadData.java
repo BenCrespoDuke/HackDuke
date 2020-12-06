@@ -62,6 +62,7 @@ public class DownloadData {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if(task.isSuccessful()==true){
                     for (QueryDocumentSnapshot document: task.getResult()) {
+                        if (document.contains("isVisible")==true && (Boolean)document.get("isVisible").equals(new Boolean(false)))
                         result.add(document.getData());
                     }
                 }
