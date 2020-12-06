@@ -32,7 +32,7 @@ public class FriendsActivity extends AppCompatActivity {
     DownloadData downloadHelp = new DownloadData();
     ArrayList<meal> friendMeals = new ArrayList<meal>();
     ArrayList<Friend> friends;
-    ArrayList<String> friendUid;
+    ArrayList<String> friendUid = new ArrayList<String>();
     String Uid;
 
     RecyclerView recyclerView;
@@ -49,192 +49,156 @@ public class FriendsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_friends);
 
 
+        //FindsList of Current Friends
 
+        List<Friend> finalFriend = new ArrayList<Friend>();
+        Query friendQuery = db.collection("users").whereEqualTo("Uid", Uid);
+        friendQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful() == true) {
+                    Map<String, Object> tempMap;
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        tempMap = document.getData();
+                        Object[] temp = (Object[]) ((ArrayList<String>) (tempMap.get("friends"))).toArray();
 
-            //FindsList of Current Friends
-            List<String> friendUID = new ArrayList<String>();
-            List<Friend> finalFriend = new ArrayList<Friend>();
-            Query friendQuery = db.collection("users").whereEqualTo("Uid",Uid);
-            friendQuery.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                @Override
-                public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                    if (task.isSuccessful()==true){
-                        Map<String,Object> tempMap;
-                        for (QueryDocumentSnapshot document:task.getResult()) {
-                            tempMap = document.getData();
-                            String[] temp = (String[]) ((ArrayList<String>)(tempMap.get("friends"))).toArray();
-
-                            for(String string: temp){
-                                friendUID.add(string);
-                            }
-
+                        for (Object string : temp) {
+                            friendUid.add(string.toString());
                         }
+
                     }
-                    else{
+                } else {
 
-                        Log.w("Cloud Activty","ERROR GETTING USER MEALS",task.getException());
-                    }
-
-
-                    db.collection("users").whereIn("Uid",friendUID).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                            if(task.isSuccessful()==true){
-                                for(DocumentSnapshot document: task.getResult()){
-                                    finalFriend.add(new Friend(document.getData()));
-                                }
-                                // Do any UI setup Using Friend Information
-                                friends = (ArrayList<Friend>)finalFriend;
-
-                                recyclerView = findViewById(R.id.recyclerView);
-
-                                for(Friend friend: friends) {
-                                     names.add((String) friend.getFriendData().get("name"));
-                                     carbon.add((double) friend.getFriendData().get("carbonAverage"));
-                                }
-
-                                FriendsAdapter friendAdapter = new FriendsAdapter(ct,names,carbon,images);
-                                recyclerView.setAdapter(friendAdapter);
-                                recyclerView.setLayoutManager(new LinearLayoutManager(ct));
+                    Log.w("Cloud Activty", "ERROR GETTING USER MEALS", task.getException());
+                }
 
 
+                db.collection("users").whereIn("Uid", friendUid).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful() == true) {
+                            for (DocumentSnapshot document : task.getResult()) {
+                                finalFriend.add(new Friend(document.getData()));
+                            }
+                        }
 
 
+                        // Do any UI setup Using Friend Information
+                        friends = (ArrayList<Friend>) finalFriend;
 
-                                // Finds Friend meals
-                                ArrayList<Map<String,Object>> result = new ArrayList<Map<String,Object>>();
-                                db.collection("Meals").whereIn("Uid", Arrays.asList(friendUID)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                                        if(task.isSuccessful()==true){
-                                            for (QueryDocumentSnapshot document: task.getResult()) {
-                                                if (document.contains("isVisible")==true && (Boolean)document.get("isVisible").equals(new Boolean(false)))
-                                                    result.add(document.getData());
+                        recyclerView = findViewById(R.id.recyclerView);
+
+                        for (Friend friend : friends) {
+                            names.add((String) friend.getFriendData().get("name"));
+                            carbon.add((double) friend.getFriendData().get("carbonAverage"));
+                        }
+
+                        FriendsAdapter friendAdapter = new FriendsAdapter(ct, names, carbon, images);
+                        recyclerView.setAdapter(friendAdapter);
+                        recyclerView.setLayoutManager(new LinearLayoutManager(ct));
+                       if (friendUid.isEmpty() == false) {
+                            db.collection("users").whereIn("Uid",friendUid).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                                @Override
+                                public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                    if (error != null) {
+                                        Log.w("Cloud Activity", "Listen failed", error);
+                                        return;
+                                    }
+
+                                    if (value != null) {
+                                        List<DocumentChange> changes = value.getDocumentChanges();
+                                        if (changes.size() > 0) {
+                                            for (DocumentChange ch : changes) {
+                                                DocumentSnapshot tempDoc = ch.getDocument();
+                                                for (int i = friends.size() - 1; i > -1; i--) {
+                                                    if ((friends.get(i).getFriendData().containsKey("Uid") == true) && (tempDoc.contains("Uid") == true) &&
+                                                            (friends.get(i).getFriendData().get("Uid")).equals((String) tempDoc.get("Uid"))) {
+                                                        friends.remove(i);
+                                                        friends.add(new Friend(tempDoc.getData()));
+                                                    }
+                                                }
                                             }
                                         }
-                                        else{
-                                            Log.w("Cloud Activty","ERROR GETTING USER MEALS",task.getException());
-                                        }
-                                        ArrayList<meal> finalResult = new ArrayList<meal>();
-                                        for (Map<String,Object> map:result) {
-                                            finalResult.add(new meal(map));
-                                        }
-                                        friendMeals = finalResult;
-                                        // Do any UI setup Using Friend Meal Informatiobn
-
-
                                     }
-                                });
-
-
-
-
-
-
-
-                            }
+                                }
+                            });
                         }
-                    });
 
-                }
-
-            });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        //Listener for Friend meal changes
-        db.collection("meals").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error != null) {
-                    Log.w("Cloud Activity", "Listen failed", error);
-                    return;
-                }
-                if (value != null) {
-                    List<DocumentChange> changes = value.getDocumentChanges();
-                    for (DocumentChange ch : changes) {
-                        DocumentSnapshot document = ch.getDocument();
-                        if (friends.indexOf(document.get("Uid")) != -1) {
-                            friendMeals.add(new meal(document.getData()));
-                        }
-                        for (Friend tempFriend : friends) {
-                            if (tempFriend.getFriendData().containsKey("Uid")) {
-                                friendUid.add((String) tempFriend.getFriendData().get("Uid"));
-                            }
-                        }
-                    }
-                }
-            }
-        });
-
-
-
-        //Listner for friend changes
-        db.collection("users").whereIn("Uid", friendUid).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if (error != null) {
-                    Log.w("Cloud Activity", "Listen failed", error);
-                    return;
-                }
-
-                if (value != null) {
-                    List<DocumentChange> changes = value.getDocumentChanges();
-                    if (changes.size() > 0) {
-                        for (DocumentChange ch : changes) {
-                            DocumentSnapshot tempDoc = ch.getDocument();
-                            for (int i = friends.size() - 1; i > -1; i--) {
-                                if ((friends.get(i).getFriendData().containsKey("Uid") == true) && (tempDoc.contains("Uid") == true) &&
-                                        (friends.get(i).getFriendData().get("Uid")).equals((String) tempDoc.get("Uid"))) {
-                                    friends.remove(i);
-                                    friends.add(new Friend(tempDoc.getData()));
+                        db.collection("meals").addSnapshotListener(new EventListener<QuerySnapshot>() {
+                            @Override
+                            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                                if (error != null) {
+                                    Log.w("Cloud Activity", "Listen failed", error);
+                                    return;
+                                }
+                                if (value != null) {
+                                    List<DocumentChange> changes = value.getDocumentChanges();
+                                    for (DocumentChange ch : changes) {
+                                        DocumentSnapshot document = ch.getDocument();
+                                        if (friends.indexOf(document.get("Uid")) != -1) {
+                                            friendMeals.add(new meal(document.getData()));
+                                        }
+                                        for (Friend tempFriend : friends) {
+                                            if (tempFriend.getFriendData().containsKey("Uid")) {
+                                                friendUid.add((String) tempFriend.getFriendData().get("Uid"));
+                                            }
+                                        }
+                                    }
                                 }
                             }
+                        });
+
+
+                        // Finds Friend meals
+                        ArrayList<Map<String, Object>> result = new ArrayList<Map<String, Object>>();
+                        db.collection("Meals").whereIn("Uid", Arrays.asList(friendUid)).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                            @Override
+                            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                if (task.isSuccessful() == true) {
+                                    for (QueryDocumentSnapshot document : task.getResult()) {
+                                        if (document.contains("isVisible") == true && (Boolean) document.get("isVisible").equals(new Boolean(false)))
+                                            result.add(document.getData());
+                                    }
+                                } else {
+                                    Log.w("Cloud Activty", "ERROR GETTING USER MEALS", task.getException());
+                                }
+                                ArrayList<meal> finalResult = new ArrayList<meal>();
+                                for (Map<String, Object> map : result) {
+                                    finalResult.add(new meal(map));
+                                }
+                                friendMeals = finalResult;
+                                // Do any UI setup Using Friend Meal Informatiobn
+
+
+                            }
+                        });
+
+
+                    }
+                });
+
+
+                //Listener for Friend meal changes
+
+
+                //Listner for friend changes
+
+
+                db.collection("users").whereEqualTo("Uid", FirebaseAuth.getInstance().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+                        if (error != null) {
+                            Log.w("Cloud Activity", "Listen failed", error);
+                            return;
+                        }
+                        if (value != null) {
+                            List<DocumentChange> ch = value.getDocumentChanges();
                         }
                     }
-                }
-            }
-        });
-
-        db.collection("users").whereEqualTo("Uid",FirebaseAuth.getInstance().getUid()).addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-                if(error != null){
-                    Log.w("Cloud Activity", "Listen failed", error);
-                    return;
-                }
-                if(value!=null){
-                    List<DocumentChange> ch = value.getDocumentChanges();
-                }
+                });
             }
         });
     }
+
+
 }
