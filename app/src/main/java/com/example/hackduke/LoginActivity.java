@@ -68,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
                 Log.w("UserAdding", "Fail", e);
             }
-            Intent i = new Intent(LoginActivity.this, CameraActivity.class);
+            Intent i = new Intent(LoginActivity.this, MainActivity.class);
             startActivity(i);
         }
     }

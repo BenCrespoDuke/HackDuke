@@ -5,49 +5,30 @@
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingTop="?attr/actionBarSize"
-    android:orientation="vertical">
+    android:orientation="horizontal"
+    android:paddingTop="?attr/actionBarSize">
 
-<!--    <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--        android:id="@+id/nav_view"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="0dp"-->
-<!--        android:layout_marginEnd="0dp"-->
-<!--        android:background="?android:attr/windowBackground"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:menu="@menu/bottom_nav_menu" />-->
-
-<!--    <fragment-->
-<!--        android:id="@+id/nav_host_fragment"-->
-<!--        android:name="androidx.navigation.fragment.NavHostFragment"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:defaultNavHost="true"-->
-<!--        app:layout_constraintBottom_toTopOf="@id/nav_view"-->
-<!--        app:layout_constraintHorizontal_bias="1.0"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="1.0"-->
-<!--        app:navGraph="@navigation/mobile_navigation" />-->
-    <TextView
-        android:id="@+id/elementOne"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/home_button"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="154dp"
         android:layout_height="wrap_content"
-        android:text="TextView" />
+        android:layout_gravity="center_horizontal|bottom"
+        android:text="home" />
 
-    <TextView
-        android:id="@+id/elementTwo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+    <Button
+            android:id="@+id/camera_button"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="154dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:text="camera" />
 
-    <TextView
-        android:id="@+id/elementThree"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView" />
+        <Button
+            android:id="@+id/friends_button"
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="154dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:text="friends" />
 </LinearLayout>
