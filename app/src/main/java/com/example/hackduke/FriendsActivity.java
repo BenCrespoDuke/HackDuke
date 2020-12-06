@@ -1,8 +1,11 @@
 package com.example.hackduke;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -37,6 +40,7 @@ public class FriendsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
+
     Context ct = this;
     ArrayList<String> names = new ArrayList<>();
     ArrayList<Long> carbon = new ArrayList<>();
@@ -46,6 +50,26 @@ public class FriendsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Uid = "0";
         setContentView(R.layout.activity_friends);
+
+        Button btnToHome;
+        Button btnToCamera;
+
+        btnToHome = findViewById(R.id.home_button3);
+        btnToCamera = findViewById(R.id.camera_button3);
+
+        btnToHome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openMainActivity(v);
+            }
+        });
+
+        btnToCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openCameraActivity(v);
+            }
+        });
 
 
         //FindsList of Current Friends
@@ -198,6 +222,18 @@ public class FriendsActivity extends AppCompatActivity {
                 });
             }
         });
+    }
+
+    public void openMainActivity(View view){
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    public void openCameraActivity(View view){
+        Intent intent = new Intent(this, CameraActivity.class);
+        startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
 
