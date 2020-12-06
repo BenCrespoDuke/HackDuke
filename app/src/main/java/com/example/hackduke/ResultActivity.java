@@ -81,6 +81,7 @@ public class ResultActivity extends AppCompatActivity {
                         openHome();
                     }
                 });
+
             }
         });
 
