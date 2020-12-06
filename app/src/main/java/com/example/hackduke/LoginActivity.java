@@ -49,33 +49,32 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         signOutButton.setOnClickListener(this);
     }
 
-    @Override
     protected void onStart() {
         super.onStart();
         // Initialize Firebase Auth
+        mGoogleSignInClient.signOut();
+        FirebaseAuth.getInstance().signOut();
         //mGoogleSignInClient.signOut();
-       // FirebaseAuth.getInstance().signOut();
+        // FirebaseAuth.getInstance().signOut();
         //updateUI(null);
         //GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
-       // updateUI(account);
-
+        // updateUI(account);
     }
-
     private void updateUI(GoogleSignInAccount currentUser) {
-        if(currentUser != null) {
+        if (currentUser != null) {
             try {
-                Query query = db.collection("users").whereEqualTo("Uid",FirebaseAuth.getInstance().getUid());
-                if(query==null){
+                Query query = db.collection("users").whereEqualTo("Uid", FirebaseAuth.getInstance().getUid());
+                if (query == null) {
                     UploadData helper = new UploadData();
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    helper.createUser(user.getUid(),user.getDisplayName(),user.getEmail());
+                    helper.createUser(user.getUid(), user.getDisplayName(), user.getEmail());
                 }
-            }catch (Exception e){
-                Log.w("UserAdding","Fail",e);
+            } catch (Exception e) {
+
+                Log.w("UserAdding", "Fail", e);
             }
             Intent i = new Intent(LoginActivity.this, CameraActivity.class);
             startActivity(i);
-
         }
     }
 
