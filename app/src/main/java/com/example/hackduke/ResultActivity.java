@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -143,7 +142,6 @@ public class ResultActivity extends AppCompatActivity {
                     return list.get(i);
                 }
             }
-            Log.d("poop", list.get(i));
         }
         return list.get(0);
     }
