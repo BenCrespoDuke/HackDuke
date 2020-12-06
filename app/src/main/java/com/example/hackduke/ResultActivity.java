@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,6 @@ public class ResultActivity extends AppCompatActivity {
 
         alert.setMessage("Estimated Amount of Food(lbs)");
 
-// Set an EditText view to get user input
         EditText input = new EditText(this);
         alert.setView(input);
 
@@ -77,6 +77,7 @@ public class ResultActivity extends AppCompatActivity {
                 img.setImageBitmap(bitmap);
 
                 cam_button = (Button) findViewById(R.id.backToCam);
+                cam_button.setBackgroundColor(Color.WHITE);
                 cam_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -125,6 +126,7 @@ public class ResultActivity extends AppCompatActivity {
                 img.setImageBitmap(bitmap);
 
                 cam_button = (Button) findViewById(R.id.backToCam);
+                cam_button.setBackgroundColor(Color.WHITE);
                 cam_button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
