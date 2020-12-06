@@ -179,8 +179,7 @@ public class FriendsActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                                 if (task.isSuccessful() == true) {
                                     for (QueryDocumentSnapshot document : task.getResult()) {
-                                        if (document.contains("isVisible") == true && (Boolean) document.get("isVisible").equals(new Boolean(false)))
-                                            result.add(document.getData());
+                                        result.add(document.getData());
                                     }
                                 } else {
                                     Log.w("Cloud Activty", "ERROR GETTING USER MEALS", task.getException());
@@ -195,11 +194,13 @@ public class FriendsActivity extends AppCompatActivity {
                                 boolean mealDetected;
                                 for (Friend friend : friends){
                                     mealDetected = false;
+
                                     for(meal m: friendMeals){
-                                        if(friend.getFriendData().get("Uid").equals(m.getMealDatat().get("Uid"))){
+                                        Log.d("ALIVEFFFF", (String) m.getMealDatat().get("Food Stuff"));
+                                        //if(friend.getFriendData().get("Uid").equals(m.getMealDatat().get("Uid"))){
                                             meals.add((String) m.getMealDatat().get("Food Stuff"));
                                             mealDetected = true;
-                                        }
+                                        //}
                                     }
                                     if(!mealDetected) {
                                         meals.add(null);
