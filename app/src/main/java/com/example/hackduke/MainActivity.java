@@ -27,6 +27,18 @@ public class MainActivity extends AppCompatActivity {
     String data;*/
     List<Friend> localFriends;
     public RecyclerView recycle;
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        String tutorialKey = "SOME_KEY";
+        Boolean firstTime = getPreferences(MODE_PRIVATE).getBoolean(tutorialKey, true);
+        if (firstTime) {
+            openStartActivity(findViewById(android.R.id.content)); // here you do what you want to do - an activity tutorial in my case
+            getPreferences(MODE_PRIVATE).edit().putBoolean(tutorialKey, false).apply();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

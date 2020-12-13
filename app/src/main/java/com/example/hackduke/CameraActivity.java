@@ -78,13 +78,8 @@ public class CameraActivity extends AppCompatActivity {
             pp.imageFromBitmap(captureImage);
             pp.ProcessImage(this);
 
-            //DO i delete this
             Intent i = new Intent(
-                    this, MainActivity.class);
-//            //i.putStringArrayListExtra("test", (ArrayList<String>) myTexts);
-//            i.putExtra("data",myTexts.get(0));
-//
-//
+                    this, LoadingActivity.class);
             this.startActivity(i);
         }
     }
