@@ -52,10 +52,10 @@ public class AddFriendsActivity extends AppCompatActivity {
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful() == true) {
+                if (task.isSuccessful()) {
                     ArrayList<String> friendreq = new ArrayList<String>();
                     recycle = findViewById(R.id.recyclerView2);
-                    if(recycle==null)
+                    if(recycle == null)
                         Log.d("check","recylcer view is null");
                     for (DocumentSnapshot documentSnapshot : task.getResult()) {
                         DocID = documentSnapshot.getId();
@@ -64,14 +64,14 @@ public class AddFriendsActivity extends AppCompatActivity {
                     Log.d("Check",friendreq.size()+"");
 
 
-                    if(friendreq.isEmpty()== false) {
+                    if(!friendreq.isEmpty()) {
                         //Gets profiles of requesting friends
                         Query query1 = db.collection("users").whereIn("email", friendreq);
                         query1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                             @Override
                             public void onComplete(@NonNull Task<QuerySnapshot> task) {
 
-                                if (task.isSuccessful() == true) {
+                                if (task.isSuccessful()) {
                                     for (DocumentSnapshot documentSnapshot : task.getResult()) {
                                         friendsRequesting.add(new Friend(documentSnapshot.getData()));
                                     }
@@ -79,16 +79,7 @@ public class AddFriendsActivity extends AppCompatActivity {
 
                                     Log.d("Check", friendsRequesting.size() + " pincdiphdc");
                                     AddFriendsAdapter friend = new AddFriendsAdapter(ct, new ArrayList<String>(), new ArrayList<Double>(), new ArrayList<Integer>(), new ArrayList<Double>(), new ArrayList<String>());
-                                    for (Friend f : friendsRequesting) {
-                                        friend.names.add((String) f.getFriendData().get("name"));
-                                        friend.carbons.add((Double) f.getFriendData().get("carbonAverage"));
-                                        friend.images.add(R.drawable.pfp);
-                                        friend.numMeals.add((Double) f.getFriendData().get("number of meals"));
-                                        friend.emails.add((String) f.getFriendData().get("email"));
-                                        Log.d("check", "one loop");
-                                    }
-                                    recycle.setAdapter(friend);
-                                    recycle.setLayoutManager(new LinearLayoutManager(ct));
+                                    editAdapter(friend, friendsRequesting);
                                     //Do UI setup with requesting Users
 
 
@@ -100,26 +91,17 @@ public class AddFriendsActivity extends AppCompatActivity {
                                             if (error != null) {
                                                 Log.w("check", "Snapshot ERROR", error);
                                             } else {
-                                                ArrayList<String> newFreindRequests = (ArrayList<String>) value.get("friend requests");
+                                                ArrayList<String> newFriendRequests = (ArrayList<String>) value.get("friend requests");
                                                 for (int i = friendsRequesting.size() - 1; i > -1; i--) {
 
-                                                    if (newFreindRequests.indexOf(friendsRequesting.get(i).getFriendData().get("email")) == -1) {
+                                                    if (newFriendRequests.indexOf(friendsRequesting.get(i).getFriendData().get("email")) == -1) {
                                                         friendsRequesting.remove(i);
                                                     }
 
                                                 }
 
                                                 AddFriendsAdapter friend = new AddFriendsAdapter(ct, new ArrayList<String>(), new ArrayList<Double>(), new ArrayList<Integer>(), new ArrayList<Double>(), new ArrayList<String>());
-                                                for (Friend f : friendsRequesting) {
-                                                    friend.names.add((String) f.getFriendData().get("name"));
-                                                    friend.carbons.add((Double) f.getFriendData().get("carbonAverage"));
-                                                    friend.images.add(R.drawable.pfp);
-                                                    friend.numMeals.add((Double) f.getFriendData().get("number of meals"));
-                                                    friend.emails.add((String) f.getFriendData().get("email"));
-                                                    Log.d("check", "one loop");
-                                                }
-                                                recycle.setAdapter(friend);
-                                                recycle.setLayoutManager(new LinearLayoutManager(ct));
+                                                editAdapter(friend, friendsRequesting);
                                                 //Do UI setup with requesting Users
                                             }
 
@@ -135,8 +117,19 @@ public class AddFriendsActivity extends AppCompatActivity {
 
             }
         });
+    }
 
-
+    public void editAdapter(AddFriendsAdapter a, ArrayList<Friend> f) {
+        for (Friend friend : f) {
+            a.names.add((String) friend.getFriendData().get("name"));
+            a.carbons.add((Double) friend.getFriendData().get("carbonAverage"));
+            a.images.add(R.drawable.pfp);
+            a.numMeals.add((Double) friend.getFriendData().get("number of meals"));
+            a.emails.add((String) friend.getFriendData().get("email"));
+            Log.d("check", "one loop");
+        }
+        recycle.setAdapter(a);
+        recycle.setLayoutManager(new LinearLayoutManager(ct));
     }
 
     public void openFriendsActivity(View view){
