@@ -39,7 +39,6 @@ public class FriendsActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
 
-
     Context ct = this;
     ArrayList<String> names = new ArrayList<>();
     ArrayList<Long> carbon = new ArrayList<>();
@@ -51,11 +50,9 @@ public class FriendsActivity extends AppCompatActivity {
         Uid = "0";
         setContentView(R.layout.activity_friends);
 
-        Button btnToHome;
-        Button btnToCamera;
-
-        btnToHome = findViewById(R.id.home_button3);
-        btnToCamera = findViewById(R.id.camera_button3);
+        Button btnToHome = findViewById(R.id.home_button3);
+        Button btnToCamera = findViewById(R.id.camera_button3);
+        Button btnToRequests = findViewById(R.id.requests_button);
 
         btnToHome.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,6 +68,12 @@ public class FriendsActivity extends AppCompatActivity {
             }
         });
 
+        btnToRequests.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openRequestsActivity(v);
+            }
+        });
 
         //FindsList of Current Friends
 
@@ -258,6 +261,11 @@ public class FriendsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CameraActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+    }
+
+    public void openRequestsActivity(View view){
+        Intent intent = new Intent(this, AddFriendsActivity.class);
+        startActivity(intent);
     }
 
 

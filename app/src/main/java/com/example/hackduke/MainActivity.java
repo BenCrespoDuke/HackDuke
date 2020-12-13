@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         Button btnToCamera = findViewById(R.id.camera_button);
         Button btnToFriends = findViewById(R.id.friends_button);
         Button btnToInstructions = findViewById(R.id.instructions_button);
-        Button btnToRequests = findViewById(R.id.requests_button);
         //getData();
         //setData();
 
@@ -96,13 +95,6 @@ public class MainActivity extends AppCompatActivity {
                 openStartActivity(v);
             }
         });
-
-        btnToRequests.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openRequestsActivity(v);
-            }
-        });
     }
 
     /*private void getData(){
@@ -127,11 +119,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void openStartActivity(View view){
         Intent intent = new Intent(this, StartActivity.class);
-        startActivity(intent);
-    }
-
-    public void openRequestsActivity(View view){
-        Intent intent = new Intent(this, AddFriendsActivity.class);
         startActivity(intent);
     }
 
