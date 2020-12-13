@@ -65,12 +65,12 @@ public class AddFriendsActivity extends AppCompatActivity {
                                 for (DocumentSnapshot documentSnapshot:task.getResult()) {
                                     friendsRequesting.add(new Friend(documentSnapshot.getData()));
                                 }
-                                AddFriendsAdapter friend = new AddFriendsAdapter(ct, new ArrayList<String>(), new ArrayList<Long>(), new ArrayList<Integer>(), new ArrayList<String>(), new ArrayList<String>());
+                                AddFriendsAdapter friend = new AddFriendsAdapter(ct, new ArrayList<String>(), new ArrayList<Double>(), new ArrayList<Integer>(), new ArrayList<Double>(), new ArrayList<String>());
                                 for(Friend f : friendsRequesting) {
                                     friend.names.add((String) f.FriendData.get("name"));
-                                    friend.carbons.add((Long) f.FriendData.get("carbonAverage"));
+                                    friend.carbons.add((Double) f.FriendData.get("carbonAverage"));
                                     friend.images.add(R.drawable.pfp);
-                                    friend.meals.add((String) f.FriendData.get("number of meals"));
+                                    friend.numMeals.add((Double) f.FriendData.get("number of meals"));
                                     friend.emails.add((String) f.FriendData.get("email"));
                                 }
                                 recycle.setAdapter(friend);

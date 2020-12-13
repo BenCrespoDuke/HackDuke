@@ -15,18 +15,18 @@ import java.util.ArrayList;
 public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.AddFriendsViewHolder> {
 
     ArrayList<String> names;
-    ArrayList<Long> carbons;
+    ArrayList<Double> carbons;
     ArrayList<Integer> images;
-    ArrayList<String> meals;
+    ArrayList<Double> numMeals;
     ArrayList<String> emails;
     Context context;
 
-    public AddFriendsAdapter(Context ct, ArrayList<String> n, ArrayList<Long> c, ArrayList<Integer> img, ArrayList<String> m, ArrayList<String> e) {
+    public AddFriendsAdapter(Context ct, ArrayList<String> n, ArrayList<Double> c, ArrayList<Integer> img, ArrayList<Double> m, ArrayList<String> e) {
         context = ct;
         names = n;
         carbons = c;
         images = img;
-        meals = m;
+        numMeals = m;
         emails = e;
     }
     @NonNull
@@ -42,9 +42,7 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Ad
             holder.name.setText(names.get(position));
             holder.carbonScore.setText(String.valueOf(carbons.get(position)));
             holder.pfp.setImageResource(images.get(position));
-            if(meals.get(position) == null) {
-                holder.meal.setText(meals.get(position));
-            }
+            holder.numMeal.setText("" + numMeals.get(position));
             holder.email = emails.get(position);
         }
     }
@@ -56,7 +54,7 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Ad
 
     public class AddFriendsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        TextView name, carbonScore, meal;
+        TextView name, carbonScore, numMeal;
         ImageView pfp;
         String email;
 
@@ -64,8 +62,8 @@ public class AddFriendsAdapter extends RecyclerView.Adapter<AddFriendsAdapter.Ad
             super(itemView);
             name = itemView.findViewById(R.id.name2);
             carbonScore = itemView.findViewById(R.id.carbonScore2);
-            meal = itemView.findViewById(R.id.meal2);
             pfp = itemView.findViewById(R.id.pfp2);
+            numMeal = itemView.findViewById(R.id.num);
             itemView.setOnClickListener(this);
             itemView.findViewById(R.id.button3).setOnClickListener(this);
             itemView.findViewById(R.id.button4).setOnClickListener(this);
