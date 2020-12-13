@@ -15,6 +15,7 @@ public class Friend {
     public Friend(Map<String,Object> map){
         FriendData = map;
     }
+
     public void updateFriendData(Map<String,Object> map){
         FriendData = map;
     }
