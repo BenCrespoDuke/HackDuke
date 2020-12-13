@@ -86,8 +86,6 @@ public class CameraActivity extends AppCompatActivity {
 //
 //
             this.startActivity(i);
-
-
         }
     }
 

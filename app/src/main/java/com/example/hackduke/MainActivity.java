@@ -30,19 +30,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        Button btnToCamera;
-        Button btnToFriends;
-        Button btnToInstructions;
-        Button btnToRequests;
-
         /*elementOne = findViewById(R.id.elementOne);
         elementTwo = findViewById(R.id.elementTwo);
         elementThree = findViewById(R.id.elementThree);*/
-        btnToCamera = findViewById(R.id.camera_button);
-        btnToFriends = findViewById(R.id.friends_button);
-        btnToInstructions = findViewById(R.id.instructions_button);
-        btnToRequests = findViewById(R.id.requests);
-
+        Button btnToCamera = findViewById(R.id.camera_button);
+        Button btnToFriends = findViewById(R.id.friends_button);
+        Button btnToInstructions = findViewById(R.id.instructions_button);
+        Button btnToRequests = findViewById(R.id.requests_button);
         //getData();
         //setData();
 
@@ -53,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
                     for(QueryDocumentSnapshot document: task.getResult()){
                         MealHistory.add(new meal(document.getData()));
                     }
-
                 }
             }
         });

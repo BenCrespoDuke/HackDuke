@@ -53,7 +53,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/requests"
+        android:id="@+id/requests_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Friend Requests"
