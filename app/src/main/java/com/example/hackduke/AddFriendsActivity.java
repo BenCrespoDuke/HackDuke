@@ -3,7 +3,6 @@ package com.example.hackduke;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -62,7 +61,7 @@ public class AddFriendsActivity extends AppCompatActivity {
                                 for (DocumentSnapshot documentSnapshot:task.getResult()) {
                                     friendsRequesting.add(new Friend(documentSnapshot.getData()));
                                 }
-                                FriendsAdapter friend = new FriendsAdapter(ct, new ArrayList<String>(), new ArrayList<Long>(), new ArrayList<Integer>(), new ArrayList<String>(), new ArrayList<String>());
+                                AddFriendsAdapter friend = new AddFriendsAdapter(ct, new ArrayList<String>(), new ArrayList<Long>(), new ArrayList<Integer>(), new ArrayList<String>(), new ArrayList<String>());
                                 for(Friend f : friendsRequesting) {
                                     friend.names.add((String) f.FriendData.get("name"));
                                     friend.carbons.add((Long) f.FriendData.get("carbonAverage"));
@@ -82,7 +81,7 @@ public class AddFriendsActivity extends AppCompatActivity {
     }
 
     public void openFriendsActivity(View view){
-        Intent intent = new Intent(this, FriendsActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }

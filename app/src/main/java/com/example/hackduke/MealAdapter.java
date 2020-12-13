@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsViewHolder> {
+public class MealAdapter extends RecyclerView.Adapter<MealAdapter.MealViewHolder> {
 
     ArrayList<String> names;
     ArrayList<Long> carbons;
@@ -20,7 +20,7 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
     ArrayList<String> meals;
     Context context;
 
-    public FriendsAdapter(Context ct, ArrayList<String> n, ArrayList<Long> c, ArrayList<Integer> img, ArrayList<String> m) {
+    public MealAdapter(Context ct, ArrayList<String> n, ArrayList<Long> c, ArrayList<Integer> img, ArrayList<String> m) {
         context = ct;
         names = n;
         carbons = c;
@@ -30,14 +30,13 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
 
     @NonNull
     @Override
-    public FriendsAdapter.FriendsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MealAdapter.MealViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.friends_row,parent,false);
-        return new FriendsViewHolder(view);
+        return new MealViewHolder(view);
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull FriendsViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MealViewHolder holder, int position) {
         if(position < names.size() ) {
             holder.name.setText(names.get(position));
             holder.carbonScore.setText(String.valueOf(carbons.get(position)));
@@ -48,18 +47,17 @@ public class FriendsAdapter extends RecyclerView.Adapter<FriendsAdapter.FriendsV
         }
     }
 
-
     @Override
     public int getItemCount() {
         return images.size();
     }
 
-    public class FriendsViewHolder extends RecyclerView.ViewHolder{
+    public class MealViewHolder extends RecyclerView.ViewHolder{
 
         TextView name, carbonScore, meal;
         ImageView pfp;
 
-        public FriendsViewHolder(@NonNull View itemView) {
+        public MealViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.name);
             carbonScore = itemView.findViewById(R.id.carbonScore);

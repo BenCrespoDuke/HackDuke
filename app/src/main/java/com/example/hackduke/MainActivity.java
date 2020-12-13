@@ -7,6 +7,7 @@ import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
     /*ArrayList<String> myTexts = new ArrayList<>();
     String data;*/
     List<Friend> localFriends;
+    public RecyclerView recycle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()==true){
+                    recycle = findViewById(R.id.recyclerView);
                     for(QueryDocumentSnapshot document: task.getResult()){
                         MealHistory.add(new meal(document.getData()));
                     }
