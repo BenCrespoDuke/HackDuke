@@ -90,46 +90,6 @@ public class ResultActivity extends AppCompatActivity {
 
         });
 
-        alert.setNegativeButton("Cancel", (dialog, whichButton) -> {
-            ConstraintLayout w = findViewById(R.id.whole);
-            w.setVisibility(View.VISIBLE);
-            Bundle extras = getIntent().getExtras();
-            ArrayList<String> predictList = extras.getStringArrayList("data");
-            Intent intent = getIntent();
-            Bitmap bitmap = (Bitmap) intent.getParcelableExtra("bit");
-            String name = searchFoodList(predictList);
-            Calculation calc = new Calculation(name,size);
-            calc.calculate();
-
-            TextView foodName = findViewById(R.id.foodName);
-            foodName.setText(name);
-
-            TextView foodGroup= findViewById(R.id.foodGroup);
-            foodGroup.setText(calc.getGroup().getName());
-
-            TextView register = findViewById(R.id.registered);
-
-            TextView score = findViewById(R.id.score);
-
-            TextView  recommendation = findViewById(R.id.Recommendation);
-            if(calc.currentGroup.getName().equals("Other")) {
-                score.setText("N/A");
-                register.setText("Failed to Register Food");
-                recommendation.setText("Sorry, your documented food is not found");
-            }
-            else {
-                score.setText(""+calc.getCo2() +" lbs");
-                register.setText("Successfully Registered Food");
-                recommendation.setText(calc.getRec());
-            }
-
-            ImageView img = findViewById(R.id.imageView2);
-            img.setImageBitmap(bitmap);
-
-            cam_button = findViewById(R.id.backToCam);
-            cam_button.setOnClickListener(v -> openHome());
-        });
-
         alert.show();
 
     }
