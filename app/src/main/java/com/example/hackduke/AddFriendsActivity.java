@@ -49,7 +49,7 @@ public class AddFriendsActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful() == true) {
                     ArrayList<String> friendreq = new ArrayList<String>();
-                    recycle = findViewById(R.id.recyclerView);
+                    recycle = findViewById(R.id.recyclerView2);
                     if(recycle==null)
                         Log.d("check","recylcer view is null");
                     for (DocumentSnapshot documentSnapshot : task.getResult()) {

@@ -26,7 +26,6 @@ import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -111,7 +110,6 @@ public class FriendsActivity extends AppCompatActivity {
                         friends = (ArrayList<Friend>) finalFriend;
 
                         recyclerView = findViewById(R.id.recyclerView);
-
                         for (Friend friend : friends) {
                             names.add((String) friend.getFriendData().get("name"));
                             carbon.add((Long) friend.getFriendData().get("carbonAverage"));
