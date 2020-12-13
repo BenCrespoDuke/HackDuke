@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,20 +22,30 @@ import java.util.Arrays;
 public class ResultActivity extends AppCompatActivity {
     private Button cam_button;
     private double size = 1.0;
+    private EditText input;
+    private AlertDialog.Builder alert;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+        boolean isValidInput = false;
+        while(isValidInput == false) {
+            alert = new AlertDialog.Builder(this);
+            alert.setMessage("Estimated Amount of Food(lbs)");
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Title");
+            input = new EditText(this);
+            String text = input.getText().toString();
+            boolean digitsOnly = TextUtils.isDigitsOnly(input.getText());
+            if(digitsOnly == true) {
+                isValidInput = true;
+            }
+            else {
+                alert.setMessage("NOOOO");
+            }
+        }
 
-        AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
-        alert.setMessage("Estimated Amount of Food(lbs)");
-
-        EditText input = new EditText(this);
         alert.setView(input);
+
 
         alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
@@ -138,6 +149,7 @@ public class ResultActivity extends AppCompatActivity {
         alert.show();
 
     }
+
     public String searchFoodList(ArrayList<String> list) {
         Calculation temp = new Calculation("",1);
         for(int i = 0; i < list.size(); i++) { // for each predicted label
