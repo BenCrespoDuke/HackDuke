@@ -44,14 +44,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        /*elementOne = findViewById(R.id.elementOne);
-        elementTwo = findViewById(R.id.elementTwo);
-        elementThree = findViewById(R.id.elementThree);*/
         Button btnToCamera = findViewById(R.id.camera_button);
         Button btnToFriends = findViewById(R.id.friends_button);
         Button btnToInstructions = findViewById(R.id.instructions_button);
-        //getData();
-        //setData();
 
         db.collection("meals").whereEqualTo("Uid", "0").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
@@ -75,36 +70,11 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);*/
 
-        btnToCamera.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openCameraActivity(v);
-            }
-        });
-
-        btnToFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFriendsActivity(v);
-            }
-        });
-
-        btnToInstructions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openStartActivity(v);
-            }
-        });
+        btnToCamera.setOnClickListener(v -> openCameraActivity(v));
+        btnToFriends.setOnClickListener(v -> openFriendsActivity(v));
+        btnToInstructions.setOnClickListener(v -> openStartActivity(v));
     }
 
-    /*private void getData(){
-        if(getIntent().hasExtra("data")) {
-            //myTexts = getIntent().getStringArrayListExtra("test");
-            data = getIntent().getStringExtra("data");
-        } else{
-            Log.d("FOOOOD1","NODATA");;
-        }
-    }*/
     public void openCameraActivity(View view){
         Intent intent = new Intent(this, CameraActivity.class);
         startActivity(intent);
@@ -121,9 +91,4 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, StartActivity.class);
         startActivity(intent);
     }
-
-    /*private void setData() {
-
-        elementOne.setText(data);
-    }*/
 }

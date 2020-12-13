@@ -42,27 +42,13 @@ public class CameraActivity extends AppCompatActivity {
                             Manifest.permission.CAMERA
                     }, 100);
         }
-        btOpen.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Open Camera
-                Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(intent, 100);
-            }
+        btOpen.setOnClickListener(v -> {
+            // Open Camera
+            Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+            startActivityForResult(intent, 100);
         });
-        btnToHome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openMainActivity(v);
-            }
-        });
-
-        btnToFriends.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                openFriendsActivity(v);
-            }
-        });
+        btnToHome.setOnClickListener(v -> openMainActivity(v));
+        btnToFriends.setOnClickListener(v -> openFriendsActivity(v));
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
