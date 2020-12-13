@@ -3,6 +3,7 @@ package com.example.hackduke;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -41,7 +42,8 @@ public class AddFriendsActivity extends AppCompatActivity {
         });
 
         //Get Users requesting to be friends
-        Query query = db.collection("user").whereEqualTo("Uid","0");
+        Query query = db.collection("users").whereEqualTo("Uid","0");
+        //Get Current User's Friend Requests
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -52,6 +54,8 @@ public class AddFriendsActivity extends AppCompatActivity {
                         //DocID = documentSnapshot.getId();
                         friendreq = (ArrayList<String>) documentSnapshot.get("friend requests");
                     }
+                    Log.d("Check",friendreq.size()+"");
+                    //Gets profiles of requesting friends
                     Query query1 = db.collection("users").whereIn("email",friendreq);
                     query1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                         @Override
