@@ -28,6 +28,7 @@ public class UploadData {
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     String docID = "";
     String DocID = "";
+    String FriendDocID = "";
     public UploadData(){
 
     }
@@ -156,23 +157,43 @@ public class UploadData {
                         DocID = documentSnapshot.getId();
                     }
                 }
+                Query query1 = db.collection("users").whereEqualTo("email",gmail);
+                query1.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                        if (task.isSuccessful() == true) {
+
+                            for (DocumentSnapshot documentSnapshot : task.getResult()) {
+                                FriendDocID = documentSnapshot.getId();
+                            }
+                        }
+
+
                 db.runTransaction(new Transaction.Function<Void>() {
                     @Nullable
                     @Override
                     public Void apply(@NonNull Transaction transaction) throws FirebaseFirestoreException {
                         DocumentSnapshot snapshot = transaction.get(db.collection("users").document(DocID));
+                        DocumentSnapshot Friendsnap = transaction.get(db.collection("users").document(FriendDocID));
+                        Map<String,Object> friendResults = Friendsnap.getData();
                         Map<String,Object> results = snapshot.getData();
                         ArrayList<String> friends = (ArrayList<String>)results.get("friends");
                         ArrayList<String> friendreq = (ArrayList<String>)results.get("friend requests");
                         if (AorD == true){
                             friendreq.remove(friendreq.indexOf(gmail));
-                            friends.add(gmail);
+                            friends.add((String) friendResults.get("Uid"));
+                            if (((ArrayList<String>)friendResults.get("friend requests")).indexOf((String) snapshot.get("email"))!= -1){
+                                ((ArrayList<String>)friendResults.get("friend requests")).remove((String) snapshot.get("email"));
+                            }
+                            ((ArrayList<String>)friendResults.get("friends")).add((String) results.get("Uid"));
                         }
                         else {
                             friendreq.remove(friendreq.indexOf(gmail));
                         }
                         transaction.update(db.collection("users").document(DocID),"friend requests",friendreq);
                         transaction.update(db.collection("users").document(DocID),"friends",friends);
+                        transaction.update(db.collection("users").document(FriendDocID),friendResults);
 
 
                         return null;
@@ -181,6 +202,10 @@ public class UploadData {
 
             }
         });
+
+            }
+        });
+
 
 
         }
